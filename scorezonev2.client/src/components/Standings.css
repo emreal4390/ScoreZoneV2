@@ -1,39 +1,122 @@
 .standings {
-    padding: 20px;
-    background-color: #1e1e1e;
-    color: white;
-    border-radius: 8px;
-    max-width: 800px;
-    margin: auto;
+    width: 100%;
+    padding: 0;
+    box-sizing: border-box;
 }
 
-    .standings table {
-        width: 100%;
-        border-collapse: collapse;
-    }
+.standings h2 {
+    margin-top: 0;
+    margin-bottom: 0.5rem;
+    font-size: 1.2rem;
+    color: #fff;
+    font-weight: 600;
+}
 
-    .standings th,
-    .standings td {
-        padding: 10px;
-        text-align: left;
-        border-bottom: 1px solid #444;
-    }
+.standings table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.85rem;
+    background-color: #0a1929;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.3);
+}
 
-.team-cell {
+.standings th {
+    color: #fff;
+    font-weight: 600;
+    text-align: left;
+    padding: 0.4rem;
+    border-bottom: 1px solid #1a2a3a;
+    background-color: #0d1f33;
+}
+
+.standings td {
+    padding: 0.3rem;
+    border-bottom: 1px solid #1a2a3a;
+    color: #fff;
+    background-color: #0a1929;
+}
+
+.standings tr:hover td {
+    background-color: #0d1f33;
+}
+
+.standings .team-cell {
     display: flex;
     align-items: center;
-    gap: 8px;
+    gap: 0.4rem;
 }
 
-.standings img {
-    border-radius: 50%;
+.standings .team-cell img {
+    width: 18px;
+    height: 18px;
+    object-fit: contain;
 }
 
-.team-link {
-    color: white;
+.standings .team-link {
+    color: #fff;
     text-decoration: none;
+    font-weight: 500;
+    font-size: 0.85rem;
 }
 
-    .team-link:hover {
-        text-decoration: underline;
+.standings .team-link:hover {
+    color: #00a3ff;
+}
+
+/* Ana sayfa için özel stiller */
+.home-standings {
+    padding: 0;
+    height: auto;
+    overflow: visible;
+}
+
+.home-standings table {
+    font-size: 0.8rem;
+    background-color: #0a1929;
+}
+
+.home-standings th,
+.home-standings td {
+    padding: 0.25rem;
+    white-space: nowrap;
+    background-color: #0a1929;
+}
+
+.home-standings th {
+    background-color: #0d1f33;
+}
+
+.home-standings tr:hover td {
+    background-color: #0d1f33;
+}
+
+/* Responsive düzenlemeler */
+@media (max-width: 768px) {
+    .home-standings {
+        font-size: 0.75rem;
     }
+    
+    .home-standings th,
+    .home-standings td {
+        padding: 0.2rem;
+    }
+}
+
+.view-all-link {
+    text-align: center;
+    margin-top: 1rem;
+    padding-top: 0.5rem;
+    border-top: 1px solid #eee;
+}
+
+.view-all-link a {
+    color: #007bff;
+    text-decoration: none;
+    font-size: 0.9rem;
+    font-weight: 500;
+}
+
+.view-all-link a:hover {
+    text-decoration: underline;
+}

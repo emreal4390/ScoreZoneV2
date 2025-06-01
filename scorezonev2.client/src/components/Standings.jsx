@@ -1,17 +1,18 @@
 ﻿import React, { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import backend from "../api/backend";
 import "./Standings.css"; // Stil dosyasını ekledik
 
 const Standings = () => {
     const [table, setTable] = useState([]);
     const seasonId = "19686";
+    const location = useLocation();
+    const isHomePage = location.pathname === "/";
 
     useEffect(() => {
         backend.get(`/leagues/standings/${seasonId}`)
             .then(res => {
                 const rawData = res.data.data;
-
                 const seen = new Set();
                 const uniqueRows = [];
 
@@ -37,14 +38,14 @@ const Standings = () => {
     }, []);
 
     return (
-        <div className="standings">
-            <h2>Puan Durumu</h2>
+        <div className={`standings ${isHomePage ? 'home-standings' : ''}`}>
+            {!isHomePage && <h2>Puan Durumu</h2>}
             <table>
                 <thead>
                     <tr>
                         <th>Sıra</th>
                         <th>Takım</th>
-                        <th>Puan</th>
+                        <th>P</th>
                     </tr>
                 </thead>
                 <tbody>

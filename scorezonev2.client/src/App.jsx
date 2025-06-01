@@ -9,7 +9,7 @@ function App() {
         <Router>
             <div className="app-container">
                 <header className="app-header">
-                    <div className="logo"> ScoreZone</div>
+                    <div className="logo">ScoreZone</div>
                     <nav className="app-nav">
                         <Link to="/">Ana Sayfa</Link>
                         <Link to="/standings">Puan Durumu</Link>
@@ -19,10 +19,18 @@ function App() {
                 <main className="app-content">
                     <Routes>
                         <Route path="/" element={
-                            <>
-                                <h1 className="section-title">Günün Futbol Haberleri</h1>
-                                <NewsSlider />
-                            </>
+                            <div className="home-content">
+                                <div className="home-grid">
+                                    <div className="news-section">
+                                        <h1 className="section-title">Günün Futbol Haberleri</h1>
+                                        <NewsSlider />
+                                    </div>
+                                    <div className="standings-section">
+                                        <h2 className="section-title">Puan Durumu</h2>
+                                        <Standings />
+                                    </div>
+                                </div>
+                            </div>
                         } />
                         <Route path="/standings" element={<Standings />} />
                         <Route path="/players/:id" element={<PlayerCard playerId={14} />} />
