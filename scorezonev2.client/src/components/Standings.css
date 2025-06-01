@@ -1,0 +1,39 @@
+.standings {
+    padding: 20px;
+    background-color: #1e1e1e;
+    color: white;
+    border-radius: 8px;
+    max-width: 800px;
+    margin: auto;
+}
+
+    .standings table {
+        width: 100%;
+        border-collapse: collapse;
+    }
+
+    .standings th,
+    .standings td {
+        padding: 10px;
+        text-align: left;
+        border-bottom: 1px solid #444;
+    }
+
+.team-cell {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.standings img {
+    border-radius: 50%;
+}
+
+.team-link {
+    color: white;
+    text-decoration: none;
+}
+
+    .team-link:hover {
+        text-decoration: underline;
+    }
