@@ -8,5 +8,6 @@ const backend = axios.create({
 });
 
 export const getTopScorers = (stageId) => backend.get(`/matches/topscorers/${stageId}`);
+export const getSquad = (seasonId, teamId) => backend.get(`/matches/squad/${seasonId}/${teamId}?include=player;position`);
 
 export default backend;

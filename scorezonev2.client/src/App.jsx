@@ -1,8 +1,9 @@
-﻿import { BrowserRouter as Router } from 'react-router-dom';
+﻿import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Standings from './components/Standings';
 import NewsSlider from './components/NewsSlider';
 import Fixtures from './components/Fixtures';
 import TopScorers from './components/TopScorers';
+import TeamProfile from './pages/TeamProfile';
 import './App.css';
 
 function App() {
@@ -16,16 +17,21 @@ function App() {
                         <a href="/standings">Puan Durumu</a>
                     </nav>
                 </header>
-                <div className="main-layout">
-                    <aside className="left-panel">
-                        <Standings />
-                        <Fixtures limit={10} />
-                    </aside>
-                    <main className="center-panel">
-                        <NewsSlider />
-                        <TopScorers />
-                    </main>
-                </div>
+                <Routes>
+                    <Route path="/" element={
+                        <div className="main-layout">
+                            <aside className="left-panel">
+                                <Standings />
+                                <TopScorers />
+                            </aside>
+                            <main className="center-panel">
+                                <NewsSlider />
+                                <Fixtures limit={9} />
+                            </main>
+                        </div>
+                    } />
+                    <Route path="/teams/:teamId" element={<TeamProfile />} />
+                </Routes>
             </>
         </Router>
     );

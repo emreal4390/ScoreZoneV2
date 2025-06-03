@@ -20,10 +20,26 @@ namespace Business.Concrete
 
         public async Task<string> GetFixturesAsync()
         {
-            var url = AddToken($"{BaseUrl}/fixtures");
-            var response = await _httpClient.GetAsync(url);
-            response.EnsureSuccessStatusCode();
-            return await response.Content.ReadAsStringAsync();
+            try
+            {
+                var startDate = "2025-05-29";
+                var endDate = "2025-06-03";
+                var url = AddToken($"{BaseUrl}/fixtures/between/{startDate}/{endDate}?include=scores");
+                Console.WriteLine($"Fikstür API isteği: {url}");
+
+                var response = await _httpClient.GetAsync(url);
+                response.EnsureSuccessStatusCode();
+                
+                var content = await response.Content.ReadAsStringAsync();
+                Console.WriteLine($"API yanıtı: {content}");
+                
+                return content;
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Fikstür çekme hatası: {ex.Message}");
+                return "{}";
+            }
         }
 
         public async Task<string> GetCompetitionsAsync()
@@ -109,6 +125,14 @@ namespace Business.Concrete
         public async Task<string> GetTopScorersByStageAsync(long stageId)
         {
             var url = AddToken($"{BaseUrl}/topscorers/stages/{stageId}?include=player");
+            var response = await _httpClient.GetAsync(url);
+            response.EnsureSuccessStatusCode();
+            return await response.Content.ReadAsStringAsync();
+        }
+
+        public async Task<string> GetSquadBySeasonAndTeamAsync(long seasonId, long teamId)
+        {
+            var url = AddToken($"{BaseUrl}/squads/seasons/{seasonId}/teams/{teamId}?include=player");
             var response = await _httpClient.GetAsync(url);
             response.EnsureSuccessStatusCode();
             return await response.Content.ReadAsStringAsync();

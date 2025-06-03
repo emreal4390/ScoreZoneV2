@@ -46,4 +46,11 @@ public class MatchesController : ControllerBase
         var result = await _footballService.GetTopScorersByStageAsync(stageId);
         return Content(result, "application/json");
     }
+
+    [HttpGet("squad/{seasonId}/{teamId}")]
+    public async Task<IActionResult> GetSquad(long seasonId, long teamId)
+    {
+        var result = await _footballService.GetSquadBySeasonAndTeamAsync(seasonId, teamId);
+        return Content(result, "application/json");
+    }
 }

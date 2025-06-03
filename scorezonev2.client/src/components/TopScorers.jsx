@@ -21,7 +21,7 @@ const TopScorers = () => {
         <div className="topscorers-container topscorers-narrow">
             <h2 className="topscorers-title">Gol Krallığı</h2>
             <div className="topscorers-list">
-                {data.map((item, idx) => (
+                {data.map((item) => (
                     <div className="topscorer-row" key={item.id}>
                         <div className="topscorer-rank">{item.position}</div>
                         <img className="topscorer-img" src={item.player?.image_path} alt={item.player?.display_name} />
