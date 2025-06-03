@@ -5,7 +5,7 @@ import backend from "../api/backend";
 import "./Standings.css"; // Stil dosyasını ekledik
 
 const Standings = () => {
-    const seasonId = "19686";
+    const seasonId = "23851";
     const location = useLocation();
     const isHomePage = location.pathname === "/";
 

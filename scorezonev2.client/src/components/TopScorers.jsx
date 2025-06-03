@@ -3,7 +3,7 @@ import { useQuery } from '@tanstack/react-query';
 import { getTopScorers } from '../api/backend';
 import './TopScorers.css';
 
-const STAGE_ID = 77457866;
+const STAGE_ID = 77465302;
 
 const TopScorers = () => {
     const { data, isLoading, error } = useQuery({
