@@ -1,41 +1,42 @@
-﻿import React, { useEffect, useState } from "react";
+﻿import React from "react";
 import { Link, useLocation } from "react-router-dom";
+import { useQuery } from "@tanstack/react-query";
 import backend from "../api/backend";
 import "./Standings.css"; // Stil dosyasını ekledik
 
 const Standings = () => {
-    const [table, setTable] = useState([]);
     const seasonId = "19686";
     const location = useLocation();
     const isHomePage = location.pathname === "/";
 
-    useEffect(() => {
-        backend.get(`/leagues/standings/${seasonId}`)
-            .then(res => {
-                const rawData = res.data.data;
-                const seen = new Set();
-                const uniqueRows = [];
+    const { data: table = [], isLoading, error } = useQuery({
+        queryKey: ['standings', seasonId],
+        queryFn: async () => {
+            const res = await backend.get(`/leagues/standings/${seasonId}`);
+            const rawData = res.data.data;
+            const seen = new Set();
+            const uniqueRows = [];
 
-                for (const row of rawData) {
-                    if (!seen.has(row.id)) {
-                        seen.add(row.id);
-                        uniqueRows.push(row);
-                    }
+            for (const row of rawData) {
+                if (!seen.has(row.id)) {
+                    seen.add(row.id);
+                    uniqueRows.push(row);
                 }
+            }
 
-                const formatted = uniqueRows
-                    .sort((a, b) => b.points - a.points)
-                    .map(entry => ({
-                        id: entry.id,
-                        points: entry.points,
-                        name: entry.team.name,
-                        logo: entry.team.logo
-                    }));
+            return uniqueRows
+                .sort((a, b) => b.points - a.points)
+                .map(entry => ({
+                    id: entry.id,
+                    points: entry.points,
+                    name: entry.team.name,
+                    logo: entry.team.logo
+                }));
+        }
+    });
 
-                setTable(formatted);
-            })
-            .catch(err => console.error("Puan durumu alınamadı", err));
-    }, []);
+    if (isLoading) return <div>Yükleniyor...</div>;
+    if (error) return <div>Hata: {error.message}</div>;
 
     return (
         <div className={`standings ${isHomePage ? 'home-standings' : ''}`}>

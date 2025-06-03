@@ -1,4 +1,5 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
+import { useQuery } from '@tanstack/react-query';
 import backend from '../api/backend';
 import Slider from 'react-slick';
 import './NewsSlider.css';
@@ -6,18 +7,15 @@ import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
 
 const NewsSlider = () => {
-    const [articles, setArticles] = useState([]);
-
-    useEffect(() => {
-        backend.get('/news')
-            .then(res => {
-                const valid = (res.data.articles || []).filter(item =>
-                    item.headline && item.links
-                );
-                setArticles(valid);
-            })
-            .catch(err => console.error('Haber çekme hatası:', err));
-    }, []);
+    const { data: articles = [], isLoading, error } = useQuery({
+        queryKey: ['news'],
+        queryFn: async () => {
+            const res = await backend.get('/news');
+            return (res.data.articles || []).filter(item =>
+                item.headline && item.links
+            );
+        }
+    });
 
     const settings = {
         dots: false,
@@ -41,6 +39,9 @@ const NewsSlider = () => {
         };
         return leagues[leagueCode] || 'Futbol';
     };
+
+    if (isLoading) return <div>Yükleniyor...</div>;
+    if (error) return <div>Hata: {error.message}</div>;
 
     return (
         <div className="slider-container">
