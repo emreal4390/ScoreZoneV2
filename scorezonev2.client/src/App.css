@@ -252,3 +252,121 @@ td {
     background-color: #fff;
     border-bottom: 1px solid #ccc;
 }
+
+.fixtures-section {
+    grid-column: 1 / -1;
+    margin-top: 20px;
+}
+
+.main-layout {
+    display: grid;
+    grid-template-columns: 340px 1fr 320px;
+    gap: 2.5rem;
+    width: 100vw;
+    min-height: 100vh;
+    background: #0a1929;
+    color: #fff;
+    padding: 40px 0 0 0;
+    box-sizing: border-box;
+}
+
+.left-panel {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+    margin-left: 32px;
+}
+
+.center-panel {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+    align-items: center;
+}
+
+.center-panel > * {
+    width: 100%;
+    max-width: 1000px;
+}
+
+.right-panel {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+    margin-right: 32px;
+    align-items: flex-end;
+}
+
+.right-panel > * {
+    width: 100%;
+    max-width: 270px;
+    overflow-x: auto;
+}
+
+.left-panel > *, .center-panel > *, .right-panel > * {
+    background: #181f2a;
+    border-radius: 16px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+    padding: 24px 18px;
+    margin-bottom: 1.5rem;
+}
+
+@media (max-width: 1200px) {
+    .main-layout {
+        grid-template-columns: 1fr;
+        gap: 1rem;
+        padding: 20px 0 0 0;
+    }
+    .left-panel, .right-panel, .center-panel {
+        margin: 0;
+        padding: 0 1rem;
+        align-items: stretch;
+    }
+    .center-panel > *, .right-panel > * {
+        max-width: 100%;
+    }
+}
+
+.app-navbar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 64px;
+    background: #101828;
+    color: #fff;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 40px;
+    z-index: 100;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.18);
+}
+
+.navbar-logo {
+    font-size: 1.5rem;
+    font-weight: bold;
+    letter-spacing: 1px;
+    color: #00a3ff;
+}
+
+.navbar-menu {
+    display: flex;
+    gap: 24px;
+}
+
+.navbar-menu a {
+    color: #fff;
+    font-size: 1.08rem;
+    font-weight: 500;
+    text-decoration: none;
+    transition: color 0.2s;
+}
+
+.navbar-menu a:hover {
+    color: #00a3ff;
+}
+
+.main-layout {
+    margin-top: 64px;
+}

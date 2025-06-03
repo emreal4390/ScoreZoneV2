@@ -1,0 +1,80 @@
+.topscorers-container {
+    width: 100%;
+    background: #181f2a;
+    border-radius: 16px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+    padding: 24px 18px;
+    margin-bottom: 1.5rem;
+}
+.topscorers-narrow {
+    max-width: 350px;
+    margin-left: auto;
+    margin-right: auto;
+}
+.topscorers-title {
+    font-size: 1.3rem;
+    color: #fff;
+    margin-bottom: 1rem;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+}
+.topscorers-list {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+.topscorer-row {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    background: #232b3b;
+    border-radius: 8px;
+    padding: 8px 12px;
+    transition: background 0.2s;
+}
+.topscorer-row:hover {
+    background: #2d3750;
+}
+.topscorer-rank {
+    width: 24px;
+    font-size: 1.1rem;
+    font-weight: bold;
+    color: #00a3ff;
+    text-align: center;
+}
+.topscorer-img {
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    object-fit: cover;
+    background: #fff;
+    border: 2px solid #00a3ff22;
+}
+.topscorer-name {
+    flex: 1;
+    font-size: 1.08rem;
+    color: #fff;
+    font-weight: 500;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+.topscorer-goals {
+    min-width: 40px;
+    color: #ffb300;
+    font-size: 1.08rem;
+    font-weight: bold;
+    text-align: right;
+}
+.topscorer-goals span {
+    color: #b0b8c9;
+    font-size: 0.95rem;
+    font-weight: 400;
+    margin-left: 2px;
+}
+
+@media (max-width: 600px) {
+    .topscorers-narrow {
+        max-width: 100%;
+    }
+} 

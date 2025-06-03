@@ -18,6 +18,14 @@ namespace Business.Concrete
             return url.Contains('?') ? $"{url}&api_token={ApiToken}" : $"{url}?api_token={ApiToken}";
         }
 
+        public async Task<string> GetFixturesAsync()
+        {
+            var url = AddToken($"{BaseUrl}/fixtures");
+            var response = await _httpClient.GetAsync(url);
+            response.EnsureSuccessStatusCode();
+            return await response.Content.ReadAsStringAsync();
+        }
+
         public async Task<string> GetCompetitionsAsync()
         {
             var url = AddToken($"{BaseUrl}/leagues");
@@ -33,8 +41,6 @@ namespace Business.Concrete
             response.EnsureSuccessStatusCode();
             return await response.Content.ReadAsStringAsync();
         }
-
-
 
         public async Task<string> GetTopScorersAsync(string seasonId)
         {
@@ -76,7 +82,6 @@ namespace Business.Concrete
             }
         }
 
-
         public async Task<string> GetTeamMatchesAsync(int teamId)
         {
             var url = AddToken($"{BaseUrl}/teams/{teamId}/fixtures?include=fixture");
@@ -96,6 +101,14 @@ namespace Business.Concrete
         public async Task<string> GetRecentMatchesAsync(string seasonId)
         {
             var url = AddToken($"{BaseUrl}/fixtures/season/{seasonId}?filters=finished&include=participants,venue");
+            var response = await _httpClient.GetAsync(url);
+            response.EnsureSuccessStatusCode();
+            return await response.Content.ReadAsStringAsync();
+        }
+
+        public async Task<string> GetTopScorersByStageAsync(long stageId)
+        {
+            var url = AddToken($"{BaseUrl}/topscorers/stages/{stageId}?include=player");
             var response = await _httpClient.GetAsync(url);
             response.EnsureSuccessStatusCode();
             return await response.Content.ReadAsStringAsync();

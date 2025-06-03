@@ -1,6 +1,4 @@
-﻿
-
-namespace Business.Abstract
+﻿namespace Business.Abstract
 {
     public interface IFootballDataService
     {
@@ -8,6 +6,7 @@ namespace Business.Abstract
         Task<string> GetStandingsAsync(string competitionCode);
 
         Task<string> GetTopScorersAsync(string competitionCode);
+        Task<string> GetTopScorersByStageAsync(long stageId);
 
         Task<string> GetPlayerByIdAsync(int playerId);
 
@@ -18,7 +17,6 @@ namespace Business.Abstract
 
         Task<string> GetRecentMatchesAsync(string competitionCode);
 
-
-
+        Task<string> GetFixturesAsync();
     }
 }

@@ -7,4 +7,6 @@ const backend = axios.create({
     }
 });
 
+export const getTopScorers = (stageId) => backend.get(`/matches/topscorers/${stageId}`);
+
 export default backend;

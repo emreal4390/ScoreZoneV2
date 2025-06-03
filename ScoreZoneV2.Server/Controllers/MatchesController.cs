@@ -12,6 +12,13 @@ public class MatchesController : ControllerBase
         _footballService = footballService;
     }
 
+    [HttpGet("fixtures")]
+    public async Task<IActionResult> GetFixtures()
+    {
+        var result = await _footballService.GetFixturesAsync();
+        return Content(result, "application/json");
+    }
+
     [HttpGet("league/{seasonId}")]
     public async Task<IActionResult> GetLeagueMatches(string seasonId)
     {
@@ -30,6 +37,13 @@ public class MatchesController : ControllerBase
     public async Task<IActionResult> GetTeamMatches(int teamId)
     {
         var result = await _footballService.GetTeamMatchesAsync(teamId);
+        return Content(result, "application/json");
+    }
+
+    [HttpGet("topscorers/{stageId}")]
+    public async Task<IActionResult> GetTopScorers(long stageId)
+    {
+        var result = await _footballService.GetTopScorersByStageAsync(stageId);
         return Content(result, "application/json");
     }
 }
