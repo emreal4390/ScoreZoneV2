@@ -112,7 +112,7 @@ namespace Business.Concrete
             {
                 var startDate = "2025-04-01";
                 var endDate = "2025-06-01";
-                var url = AddToken($"{BaseUrl}/fixtures/between/{startDate}/{endDate}/{teamId}?include=participants;league;venue;scores");
+                var url = AddToken($"{BaseUrl}/fixtures/between/{startDate}/{endDate}/{teamId}?include=participants;league;venue;state;scores;events.type;events.period;events.player;statistics.type;sidelined.sideline.player;sidelined.sideline.type;weatherReport");
                 Console.WriteLine($"Takım Fikstür API isteği: {url}");
 
                 var response = await _httpClient.GetAsync(url);
