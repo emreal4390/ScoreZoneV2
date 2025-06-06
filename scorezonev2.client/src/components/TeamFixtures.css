@@ -313,4 +313,165 @@
     .statistics {
         grid-template-columns: repeat(2, 1fr);
     }
+}
+
+.match-details-tabs {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 20px;
+    border-bottom: 1px solid #e0e0e0;
+    padding-bottom: 10px;
+}
+
+.match-details-tab {
+    padding: 10px 20px;
+    cursor: pointer;
+    font-weight: 500;
+    transition: all 0.3s ease;
+    color: #666;
+    border-bottom: 2px solid transparent;
+}
+
+.match-details-tab.active {
+    color: #1a73e8;
+    border-bottom: 2px solid #1a73e8;
+}
+
+.match-details-tab:hover {
+    color: #1a73e8;
+}
+
+.events-tabs {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 15px;
+}
+
+.event-tab {
+    padding: 6px 12px;
+    cursor: pointer;
+    font-weight: 500;
+    transition: all 0.3s ease;
+    color: #666;
+    border-bottom: 2px solid transparent;
+}
+
+.event-tab.active {
+    color: #1a73e8;
+    border-bottom: 2px solid #1a73e8;
+}
+
+.event-tab:hover {
+    color: #1a73e8;
+}
+
+.events-timeline {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    padding: 0 10px;
+}
+
+.event-item {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 4px 0;
+    font-size: 0.95em;
+    color: #fff;
+}
+
+.event-time {
+    font-weight: 600;
+    color: #1a73e8;
+    min-width: 35px;
+}
+
+.event-icon {
+    font-size: 1.1em;
+    min-width: 25px;
+    text-align: center;
+}
+
+.event-details {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    color: #fff;
+}
+
+.event-player {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.event-player-image {
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    object-fit: cover;
+}
+
+.event-info {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    color: #fff;
+}
+
+.event-type {
+    font-weight: 500;
+    color: #fff;
+}
+
+.event-description {
+    color: #fff;
+}
+
+.event-addition {
+    color: rgba(255, 255, 255, 0.7);
+}
+
+.event-result {
+    color: #1a73e8;
+    font-weight: 500;
+}
+
+@media (max-width: 768px) {
+    .events-timeline {
+        gap: 8px;
+        padding: 8px;
+    }
+
+    .event-item {
+        gap: 8px;
+        padding: 6px;
+    }
+
+    .event-time {
+        min-width: 25px;
+        font-size: 0.9em;
+    }
+
+    .event-icon {
+        min-width: 25px;
+        font-size: 1.1em;
+    }
+
+    .event-player-image {
+        width: 20px;
+        height: 20px;
+    }
+
+    .event-player span {
+        font-size: 0.85em;
+    }
+
+    .event-type,
+    .event-description,
+    .event-addition,
+    .event-result {
+        font-size: 0.8em;
+    }
 } 

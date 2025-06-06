@@ -5,6 +5,8 @@ import './TeamFixtures.css';
 
 const TeamFixtures = ({ teamId }) => {
     const [expandedMatch, setExpandedMatch] = useState(null);
+    const [activeEventTab, setActiveEventTab] = useState('goals');
+    const [activeDetailTab, setActiveDetailTab] = useState('events');
 
     const { data: fixtures = [], isLoading, error } = useQuery({
         queryKey: ['teamFixtures', teamId],
@@ -98,6 +100,74 @@ const TeamFixtures = ({ teamId }) => {
         };
     };
 
+    const getEvents = (fixture) => {
+        if (!fixture.events) return [];
+        
+        return fixture.events.map(event => ({
+            id: event.id,
+            minute: event.minute,
+            type: event.type?.name || 'Bilinmiyor',
+            player: event.player_name,
+            result: event.result,
+            info: event.info,
+            addition: event.addition,
+            playerImage: event.player?.image_path
+        }));
+    };
+
+    const getEventIcon = (eventType) => {
+        switch (eventType.toLowerCase()) {
+            case 'goal':
+                return '⚽';
+            case 'penalty':
+                return '🎯';
+            case 'var':
+                return '📺';
+            case 'yellow card':
+                return '🟨';
+            case 'red card':
+                return '🟥';
+            case 'substitution':
+                return '🔄';
+            default:
+                return '⚪';
+        }
+    };
+
+    const formatEventText = (event) => {
+        let text = event.player;
+        
+        if (event.type.toLowerCase().includes('goal')) {
+            text += ' ⚽';
+        } else if (event.type.toLowerCase().includes('card')) {
+            text += event.type.toLowerCase().includes('red') ? ' 🟥' : ' 🟨';
+        } else if (event.type.toLowerCase().includes('substitution')) {
+            text += ' 🔄';
+        }
+
+        if (event.info) {
+            text += ` (${event.info})`;
+        }
+
+        return text;
+    };
+
+    const filterEvents = (events, tab) => {
+        return events.filter(event => {
+            const type = event.type.toLowerCase();
+            switch (tab) {
+                case 'goals':
+                    return type.includes('goal') || type.includes('penalty');
+                case 'cards':
+                    return type.includes('card');
+                case 'substitutions':
+                    return type.includes('substitution');
+                default:
+                    return true;
+            }
+        });
+    };
+
     if (isLoading) return <div className="team-fixtures-container">Yükleniyor...</div>;
     if (error) return <div className="team-fixtures-container">Hata: {error.message}</div>;
     if (!fixtures || fixtures.length === 0) return <div className="team-fixtures-container">Bu tarih aralığında maç bulunamadı.</div>;
@@ -114,6 +184,7 @@ const TeamFixtures = ({ teamId }) => {
                     const isExpanded = expandedMatch === fixture.id;
                     const statistics = getStatistics(fixture);
                     const weather = getWeather(fixture);
+                    const events = getEvents(fixture);
                     
                     return (
                         <div key={fixture.id} className={`team-fixture-row ${resultColor}`}>
@@ -140,31 +211,61 @@ const TeamFixtures = ({ teamId }) => {
                             
                             {isExpanded && (
                                 <div className="match-details">
-                                    <div className="match-details-section">
-                                        <h3>İlk 11'ler</h3>
-                                        <div className="lineups">
-                                            <div className="lineup home">
-                                                <h4>{homeTeam?.name}</h4>
-                                                <ul>
-                                                    {getLineups(fixture).home.map((player, index) => (
-                                                        <li key={index}>{player.display_name}</li>
-                                                    ))}
-                                                </ul>
-                                            </div>
-                                            <div className="lineup away">
-                                                <h4>{awayTeam?.name}</h4>
-                                                <ul>
-                                                    {getLineups(fixture).away.map((player, index) => (
-                                                        <li key={index}>{player.display_name}</li>
-                                                    ))}
-                                                </ul>
-                                            </div>
+                                    <div className="match-details-tabs">
+                                        <div 
+                                            className={`match-details-tab ${activeDetailTab === 'events' ? 'active' : ''}`}
+                                            onClick={() => setActiveDetailTab('events')}
+                                        >
+                                            Maç Olayları
+                                        </div>
+                                        <div 
+                                            className={`match-details-tab ${activeDetailTab === 'stats' ? 'active' : ''}`}
+                                            onClick={() => setActiveDetailTab('stats')}
+                                        >
+                                            İstatistikler
                                         </div>
                                     </div>
-                                    
-                                    {statistics.length > 0 && (
+
+                                    {activeDetailTab === 'events' && events.length > 0 && (
                                         <div className="match-details-section">
-                                            <h3>Maç İstatistikleri</h3>
+                                            <div className="events-tabs">
+                                                <div 
+                                                    className={`event-tab ${activeEventTab === 'goals' ? 'active' : ''}`}
+                                                    onClick={() => setActiveEventTab('goals')}
+                                                >
+                                                    Goller
+                                                </div>
+                                                <div 
+                                                    className={`event-tab ${activeEventTab === 'cards' ? 'active' : ''}`}
+                                                    onClick={() => setActiveEventTab('cards')}
+                                                >
+                                                    Kartlar
+                                                </div>
+                                                <div 
+                                                    className={`event-tab ${activeEventTab === 'substitutions' ? 'active' : ''}`}
+                                                    onClick={() => setActiveEventTab('substitutions')}
+                                                >
+                                                    Değişiklikler
+                                                </div>
+                                            </div>
+                                            <div className="events-timeline">
+                                                {filterEvents(events, activeEventTab).map((event) => (
+                                                    <div key={event.id} className="event-item">
+                                                        <div className="event-time">{event.minute}'</div>
+                                                        <div className="event-details">
+                                                            {event.playerImage && (
+                                                                <img src={event.playerImage} alt={event.player} className="event-player-image" />
+                                                            )}
+                                                            <span>{formatEventText(event)}</span>
+                                                        </div>
+                                                    </div>
+                                                ))}
+                                            </div>
+                                        </div>
+                                    )}
+
+                                    {activeDetailTab === 'stats' && statistics.length > 0 && (
+                                        <div className="match-details-section">
                                             <div className="statistics">
                                                 {statistics.map((stat, index) => (
                                                     <div key={index} className="stat-row">
