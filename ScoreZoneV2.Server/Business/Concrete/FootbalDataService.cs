@@ -42,14 +42,6 @@ namespace Business.Concrete
             }
         }
 
-        public async Task<string> GetCompetitionsAsync()
-        {
-            var url = AddToken($"{BaseUrl}/leagues");
-            var response = await _httpClient.GetAsync(url);
-            response.EnsureSuccessStatusCode();
-            return await response.Content.ReadAsStringAsync();
-        }
-
         public async Task<string> GetStandingsAsync(string seasonId)
         {
             var url = AddToken($"{BaseUrl}/standings/seasons/{seasonId}");
@@ -96,30 +88,6 @@ namespace Business.Concrete
                 Console.WriteLine($"Team çekme hatası (teamId={teamId}): " + ex.Message);
                 return "{}";
             }
-        }
-
-        public async Task<string> GetTeamMatchesAsync(int teamId)
-        {
-            var url = AddToken($"{BaseUrl}/teams/{teamId}/fixtures?include=fixture");
-            var response = await _httpClient.GetAsync(url);
-            response.EnsureSuccessStatusCode();
-            return await response.Content.ReadAsStringAsync();
-        }
-
-        public async Task<string> GetLeagueMatchesAsync(string seasonId)
-        {
-            var url = AddToken($"{BaseUrl}/fixtures/season/{seasonId}?include=participants,venue");
-            var response = await _httpClient.GetAsync(url);
-            response.EnsureSuccessStatusCode();
-            return await response.Content.ReadAsStringAsync();
-        }
-
-        public async Task<string> GetRecentMatchesAsync(string seasonId)
-        {
-            var url = AddToken($"{BaseUrl}/fixtures/season/{seasonId}?filters=finished&include=participants,venue");
-            var response = await _httpClient.GetAsync(url);
-            response.EnsureSuccessStatusCode();
-            return await response.Content.ReadAsStringAsync();
         }
 
         public async Task<string> GetTopScorersByStageAsync(long stageId)

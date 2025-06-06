@@ -19,26 +19,7 @@ public class MatchesController : ControllerBase
         return Content(result, "application/json");
     }
 
-    [HttpGet("league/{seasonId}")]
-    public async Task<IActionResult> GetLeagueMatches(string seasonId)
-    {
-        var result = await _footballService.GetLeagueMatchesAsync(seasonId);
-        return Content(result, "application/json");
-    }
-
-    [HttpGet("recent/{seasonId}")]
-    public async Task<IActionResult> GetRecentMatches(string seasonId)
-    {
-        var result = await _footballService.GetRecentMatchesAsync(seasonId);
-        return Content(result, "application/json");
-    }
-
-    [HttpGet("team/{teamId}")]
-    public async Task<IActionResult> GetTeamMatches(int teamId)
-    {
-        var result = await _footballService.GetTeamMatchesAsync(teamId);
-        return Content(result, "application/json");
-    }
+   
 
     [HttpGet("topscorers/{stageId}")]
     public async Task<IActionResult> GetTopScorers(long stageId)

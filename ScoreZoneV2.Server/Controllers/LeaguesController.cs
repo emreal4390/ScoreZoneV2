@@ -13,13 +13,6 @@ public class LeaguesController : ControllerBase
         _footballService = footballService;
     }
 
-    [HttpGet("all")]
-    public async Task<IActionResult> GetAllLeagues()
-    {
-        var result = await _footballService.GetCompetitionsAsync();
-        return Content(result, "application/json");
-    }
-
     [HttpGet("standings/{seasonId}")]
     public async Task<IActionResult> GetStandings(string seasonId)
     {
@@ -70,7 +63,5 @@ public class LeaguesController : ControllerBase
             return StatusCode(500, "Sunucu hatası: " + ex.Message);
         }
     }
-
-
 
 }
