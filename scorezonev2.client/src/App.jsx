@@ -9,7 +9,7 @@ import './App.css';
 function App() {
     return (
         <Router>
-            <>
+            <div className="app-container">
                 <header className="app-navbar">
                     <div className="navbar-logo">ScoreZone</div>
                     <nav className="navbar-menu">
@@ -17,22 +17,24 @@ function App() {
                         <a href="/standings">Puan Durumu</a>
                     </nav>
                 </header>
-                <Routes>
-                    <Route path="/" element={
-                        <div className="main-layout">
-                            <aside className="left-panel">
-                                <Standings />
-                                <TopScorers />
-                            </aside>
-                            <main className="center-panel">
-                                <NewsSlider />
-                                <Fixtures limit={9} />
-                            </main>
-                        </div>
-                    } />
-                    <Route path="/teams/:teamId" element={<TeamProfile />} />
-                </Routes>
-            </>
+                <main className="app-content">
+                    <Routes>
+                        <Route path="/" element={
+                            <div className="main-layout">
+                                <aside className="left-panel">
+                                    <Standings />
+                                    <TopScorers />
+                                </aside>
+                                <main className="center-panel">
+                                    <NewsSlider />
+                                    <Fixtures limit={9} />
+                                </main>
+                            </div>
+                        } />
+                        <Route path="/teams/:teamId" element={<TeamProfile />} />
+                    </Routes>
+                </main>
+            </div>
         </Router>
     );
 }

@@ -9,6 +9,14 @@ body {
     min-height: 100vh;
 }
 
+#root {
+    width: 100vw;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    background-color: #000000;
+}
+
 a {
     text-decoration: none;
     color: inherit;
