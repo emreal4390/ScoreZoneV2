@@ -168,9 +168,9 @@ const TeamFixtures = ({ teamId }) => {
                                             <div className="statistics">
                                                 {statistics.map((stat, index) => (
                                                     <div key={index} className="stat-row">
-                                                        <span className="stat-value home">{stat.home}</span>
-                                                        <span className="stat-name">{stat.type}</span>
-                                                        <span className="stat-value away">{stat.away}</span>
+                                                        <span className="stat-value">{stat.home}</span>
+                                                        <span className="stat-name" title={stat.type}>{stat.type}</span>
+                                                        <span className="stat-value">{stat.away}</span>
                                                     </div>
                                                 ))}
                                             </div>
