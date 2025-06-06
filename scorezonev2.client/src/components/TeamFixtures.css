@@ -1,0 +1,130 @@
+.team-fixtures-container {
+    width: 100%;
+    background: #181f2a;
+    border-radius: 16px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+    padding: 24px 18px;
+    margin-bottom: 1.5rem;
+}
+
+.team-fixtures-title {
+    font-size: 1.3rem;
+    color: #fff;
+    margin-bottom: 1rem;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+}
+
+.team-fixtures-list {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.team-fixture-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background: #232b3b;
+    border-radius: 12px;
+    padding: 14px 12px;
+    margin-bottom: 4px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    transition: all 0.2s;
+    border-left: 4px solid transparent;
+}
+
+.team-fixture-row.win {
+    border-left-color: #4caf50;
+    background: rgba(76, 175, 80, 0.1);
+}
+
+.team-fixture-row.draw {
+    border-left-color: #9e9e9e;
+    background: rgba(158, 158, 158, 0.1);
+}
+
+.team-fixture-row.loss {
+    border-left-color: #f44336;
+    background: rgba(244, 67, 54, 0.1);
+}
+
+.team-fixture-row:hover {
+    transform: translateX(4px);
+}
+
+.team-fixture-date {
+    color: #8fa2c7;
+    font-size: 0.9rem;
+    min-width: 100px;
+    text-align: left;
+}
+
+.team-fixture-teams {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    flex: 1;
+    justify-content: space-between;
+    font-size: 1.1rem;
+    font-weight: 500;
+    color: #fff;
+    padding: 0 20px;
+}
+
+.team-fixture-team {
+    color: #fff;
+    font-weight: 500;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    text-align: center;
+    width: 100%;
+}
+
+.team-fixture-vs {
+    color: #8fa2c7;
+    font-size: 1.2rem;
+    font-weight: 600;
+    padding: 0 15px;
+    min-width: 70px;
+    text-align: center;
+}
+
+.team-fixture-venue {
+    color: #8fa2c7;
+    font-size: 0.9rem;
+    min-width: 150px;
+    text-align: right;
+    padding-left: 20px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.venue-icon {
+    font-size: 1.1rem;
+}
+
+@media (max-width: 768px) {
+    .team-fixture-row {
+        flex-direction: column;
+        gap: 8px;
+        align-items: flex-start;
+    }
+
+    .team-fixture-date {
+        min-width: auto;
+    }
+
+    .team-fixture-teams {
+        width: 100%;
+        padding: 0;
+    }
+
+    .team-fixture-venue {
+        min-width: auto;
+        text-align: left;
+        padding-left: 0;
+    }
+} 

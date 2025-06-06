@@ -105,5 +105,29 @@ namespace Business.Concrete
             response.EnsureSuccessStatusCode();
             return await response.Content.ReadAsStringAsync();
         }
+
+        public async Task<string> GetTeamFixturesAsync(int teamId)
+        {
+            try
+            {
+                var startDate = "2024-08-03";
+                var endDate = "2025-06-01";
+                var url = AddToken($"{BaseUrl}/fixtures/between/{startDate}/{endDate}/{teamId}?include=participants;league;venue;scores");
+                Console.WriteLine($"Takım Fikstür API isteği: {url}");
+
+                var response = await _httpClient.GetAsync(url);
+                response.EnsureSuccessStatusCode();
+                
+                var content = await response.Content.ReadAsStringAsync();
+                Console.WriteLine($"API yanıtı: {content}");
+                
+                return content;
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Takım Fikstür çekme hatası: {ex.Message}");
+                return "{}";
+            }
+        }
     }
 }

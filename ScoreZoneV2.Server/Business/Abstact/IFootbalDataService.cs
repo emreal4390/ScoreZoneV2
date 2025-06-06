@@ -15,5 +15,7 @@
         Task<string> GetFixturesAsync();
 
         Task<string> GetSquadBySeasonAndTeamAsync(long seasonId, long teamId);
+
+        Task<string> GetTeamFixturesAsync(int teamId);
     }
 }

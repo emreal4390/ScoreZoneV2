@@ -4,15 +4,53 @@
     box-shadow: 0 2px 8px rgba(0,0,0,0.2);
     padding: 32px 24px;
     margin: 32px auto;
-    max-width: 700px;
+    width: 100%;
+    max-width: 1200px;
     color: #fff;
+    box-sizing: border-box;
 }
+
+.team-profile-tabs {
+    display: flex;
+    gap: 1rem;
+    margin-bottom: 2rem;
+    border-bottom: 1px solid #2d3750;
+    padding-bottom: 1rem;
+}
+
+.team-profile-tab {
+    background: none;
+    border: none;
+    color: #8fa2c7;
+    font-size: 1.1rem;
+    font-weight: 500;
+    padding: 0.5rem 1rem;
+    cursor: pointer;
+    transition: all 0.2s;
+    border-radius: 8px;
+}
+
+.team-profile-tab:hover {
+    color: #fff;
+    background: #2d3750;
+}
+
+.team-profile-tab.active {
+    color: #00a3ff;
+    background: #2d3750;
+}
+
+.team-profile-content {
+    min-height: 400px;
+}
+
 .team-profile-title {
     font-size: 1.5rem;
     margin-bottom: 24px;
     color: #00a3ff;
     text-align: center;
 }
+
 .squad-position-title {
     font-size: 1.15rem;
     color: #ffb300;
@@ -20,12 +58,14 @@
     font-weight: 600;
     letter-spacing: 0.5px;
 }
+
 .squad-list {
     display: flex;
     flex-wrap: wrap;
     gap: 8px;
     justify-content: center;
 }
+
 .squad-player-card {
     background: #232b3b;
     border-radius: 10px;
@@ -36,10 +76,12 @@
     align-items: center;
     box-shadow: 0 1px 4px rgba(0,0,0,0.08);
 }
+
 .squad-player-card.small {
     width: 80px;
     padding: 6px 2px;
 }
+
 .squad-player-img {
     width: 32px;
     height: 32px;
@@ -48,19 +90,39 @@
     margin-bottom: 5px;
     background: #fff;
 }
+
 .squad-player-info {
     text-align: center;
 }
+
 .squad-player-name {
     font-weight: 600;
     font-size: 0.92rem;
     margin-bottom: 2px;
 }
+
 .squad-player-jersey {
     color: #00a3ff;
     font-size: 0.85rem;
 }
+
 .squad-player-position {
     color: #b0b8c9;
     font-size: 0.95rem;
+}
+
+@media (max-width: 768px) {
+    .team-profile-container {
+        margin: 16px;
+        padding: 16px;
+    }
+
+    .team-profile-tabs {
+        gap: 0.5rem;
+    }
+
+    .team-profile-tab {
+        font-size: 1rem;
+        padding: 0.4rem 0.8rem;
+    }
 } 
