@@ -12,6 +12,20 @@ builder.Services.AddSwaggerGen();
 builder.Services.AddHttpClient();
 builder.Services.AddScoped<IFootballDataService, FootballDataService>();
 
+// CORS politikasını ekle
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("AllowAll",
+        builder =>
+        {
+            builder
+                .WithOrigins("https://localhost:59431") // Frontend'in çalıştığı port
+                .AllowAnyMethod()
+                .AllowAnyHeader()
+                .AllowCredentials();
+        });
+});
+
 var app = builder.Build();
 
 app.UseDefaultFiles();
@@ -25,6 +39,9 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
+
+// CORS middleware'ini ekle
+app.UseCors("AllowAll");
 
 app.UseAuthorization();
 

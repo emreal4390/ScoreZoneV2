@@ -1,9 +1,11 @@
-﻿import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+﻿import React from 'react';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Standings from './components/Standings';
 import NewsSlider from './components/NewsSlider';
 import Fixtures from './components/Fixtures';
 import TopScorers from './components/TopScorers';
 import TeamProfile from './pages/TeamProfile';
+import PlayerRating from './pages/PlayerRating.jsx';
 import './App.css';
 
 function App() {
@@ -32,6 +34,7 @@ function App() {
                             </div>
                         } />
                         <Route path="/teams/:teamId" element={<TeamProfile />} />
+                        <Route path="/player-rating" element={<PlayerRating />} />
                     </Routes>
                 </main>
             </div>
