@@ -1,0 +1,349 @@
+.page-title {
+  color: #1a237e;
+  text-align: center;
+  margin-bottom: 2rem !important;
+  font-weight: 600 !important;
+}
+
+.rating-form {
+  background-color: #ffffff;
+  border-radius: 12px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  transition: all 0.3s ease;
+}
+
+.rating-form:hover {
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+}
+
+.stat-category {
+  margin-bottom: 1.5rem;
+  border-radius: 8px;
+  transition: all 0.3s ease;
+}
+
+.stat-category:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.category-title {
+  color: #1a237e;
+  font-weight: 600 !important;
+  margin-bottom: 1rem !important;
+}
+
+.stat-input {
+  position: relative;
+}
+
+.stat-input .MuiTextField-root {
+  background-color: #f5f5f5;
+  border-radius: 8px;
+  transition: all 0.3s ease;
+}
+
+.stat-input .MuiTextField-root:hover {
+  background-color: #eeeeee;
+}
+
+.stat-input .MuiInputBase-root {
+  border-radius: 8px;
+}
+
+.stat-input .MuiInputLabel-root {
+  color: #1a237e;
+}
+
+.stat-input .MuiOutlinedInput-notchedOutline {
+  border-color: #e0e0e0;
+}
+
+.stat-input .MuiOutlinedInput-root:hover .MuiOutlinedInput-notchedOutline {
+  border-color: #1a237e;
+}
+
+.stat-input .MuiOutlinedInput-root.Mui-focused .MuiOutlinedInput-notchedOutline {
+  border-color: #1a237e;
+}
+
+.stat-input .MuiInputLabel-root.Mui-focused {
+  color: #1a237e;
+}
+
+.submit-button {
+  background-color: #1a237e !important;
+  color: white !important;
+  padding: 12px 32px !important;
+  font-size: 1.1rem !important;
+  font-weight: 600 !important;
+  border-radius: 8px !important;
+  text-transform: none !important;
+  transition: all 0.3s ease !important;
+}
+
+.submit-button:hover {
+  background-color: #283593 !important;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.submit-button:disabled {
+  background-color: #9e9e9e !important;
+  transform: none;
+  box-shadow: none;
+}
+
+.error-alert {
+  background-color: #ffebee !important;
+  color: #c62828 !important;
+  border-radius: 8px !important;
+  padding: 16px !important;
+  margin-top: 2rem !important;
+}
+
+.rating-alert {
+  background-color: #e8f5e9 !important;
+  color: #2e7d32 !important;
+  border-radius: 8px !important;
+  padding: 16px !important;
+  margin-top: 2rem !important;
+  text-align: center !important;
+}
+
+.rating-alert .MuiTypography-root {
+  font-weight: 600 !important;
+  font-size: 1.5rem !important;
+}
+
+/* Tooltip stilleri */
+.MuiTooltip-tooltip {
+  background-color: #1a237e !important;
+  font-size: 0.9rem !important;
+  padding: 8px 12px !important;
+  border-radius: 4px !important;
+}
+
+/* Responsive tasarım */
+@media (max-width: 600px) {
+  .page-title {
+    font-size: 1.8rem !important;
+  }
+
+  .category-title {
+    font-size: 1.2rem !important;
+  }
+
+  .submit-button {
+    width: 100%;
+    padding: 10px 24px !important;
+  }
+}
+
+/* Animasyonlar */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.stat-category {
+  animation: fadeIn 0.5s ease-out;
+}
+
+.rating-alert {
+  animation: fadeIn 0.5s ease-out;
+}
+
+.player-rating-container {
+    padding: 20px;
+    background-color: #000000;
+    min-height: 100vh;
+    color: #ffffff;
+}
+
+.player-rating-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+    padding: 0 20px;
+}
+
+.player-rating-header h1 {
+    font-size: 24px;
+    color: #ffffff;
+    margin: 0;
+}
+
+.player-rating-content {
+    display: flex;
+    gap: 20px;
+    padding: 0 20px;
+}
+
+.player-rating-form {
+    flex: 1;
+    background: rgba(255, 255, 255, 0.05);
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.player-rating-result {
+    flex: 1;
+    background: rgba(255, 255, 255, 0.05);
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.form-group {
+    margin-bottom: 15px;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 5px;
+    color: #ffffff;
+    font-size: 14px;
+}
+
+.form-group input {
+    width: 100%;
+    padding: 8px;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 4px;
+    background: rgba(255, 255, 255, 0.05);
+    color: #ffffff;
+    font-size: 14px;
+}
+
+.form-group input:focus {
+    outline: none;
+    border-color: #4a90e2;
+}
+
+.form-actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: 10px;
+    margin-top: 20px;
+}
+
+.form-actions button {
+    padding: 8px 16px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 14px;
+    transition: background-color 0.2s;
+}
+
+.form-actions button[type="submit"] {
+    background-color: #4a90e2;
+    color: white;
+}
+
+.form-actions button[type="button"] {
+    background-color: transparent;
+    color: #ffffff;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.form-actions button:hover {
+    opacity: 0.9;
+}
+
+.rating-display {
+    text-align: center;
+    padding: 20px;
+}
+
+.rating-value {
+    font-size: 48px;
+    font-weight: bold;
+    color: #4a90e2;
+    margin: 20px 0;
+}
+
+.rating-label {
+    font-size: 16px;
+    color: #ffffff;
+    margin-bottom: 10px;
+}
+
+.rating-description {
+    font-size: 14px;
+    color: rgba(255, 255, 255, 0.7);
+    margin-top: 10px;
+}
+
+.rating-scale {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    margin-top: 20px;
+}
+
+.rating-scale button {
+    background: none;
+    border: none;
+    color: #ffffff;
+    cursor: pointer;
+    font-size: 20px;
+    padding: 5px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: color 0.2s;
+}
+
+.rating-scale button:hover {
+    color: #4a90e2;
+}
+
+.rating-scale span {
+    font-size: 16px;
+    color: #ffffff;
+}
+
+.help-icon {
+    color: #ffffff;
+    cursor: pointer;
+    margin-left: 8px;
+    font-size: 20px;
+}
+
+.help-icon:hover {
+    color: #4a90e2;
+}
+
+.help-tooltip {
+    position: absolute;
+    background: rgba(0, 0, 0, 0.9);
+    color: #ffffff;
+    padding: 10px;
+    border-radius: 4px;
+    font-size: 14px;
+    max-width: 300px;
+    z-index: 1000;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+@media (max-width: 768px) {
+    .player-rating-content {
+        flex-direction: column;
+    }
+    
+    .player-rating-form,
+    .player-rating-result {
+        width: 100%;
+    }
+} 

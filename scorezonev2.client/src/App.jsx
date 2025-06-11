@@ -1,5 +1,5 @@
 ﻿import React from 'react';
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom';
 import Standings from './components/Standings';
 import NewsSlider from './components/NewsSlider';
 import Fixtures from './components/Fixtures';
@@ -15,8 +15,9 @@ function App() {
                 <header className="app-navbar">
                     <div className="navbar-logo">ScoreZone</div>
                     <nav className="navbar-menu">
-                        <a href="/">Ana Sayfa</a>
-                        <a href="/standings">Puan Durumu</a>
+                        <Link to="/">Ana Sayfa</Link>
+                        <Link to="/standings">Puan Durumu</Link>
+                        <Link to="/player-rating">Rating Hesaplama</Link>
                     </nav>
                 </header>
                 <main className="app-content">
