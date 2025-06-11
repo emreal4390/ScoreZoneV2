@@ -6,6 +6,7 @@ import Fixtures from './components/Fixtures';
 import TopScorers from './components/TopScorers';
 import TeamProfile from './pages/TeamProfile';
 import PlayerRating from './pages/PlayerRating.jsx';
+import Feed from './pages/Feed';
 import './App.css';
 
 function App() {
@@ -18,6 +19,7 @@ function App() {
                         <Link to="/">Ana Sayfa</Link>
                         <Link to="/standings">Puan Durumu</Link>
                         <Link to="/player-rating">Rating Hesaplama</Link>
+                        <Link to="/feed">Akış</Link>
                     </nav>
                 </header>
                 <main className="app-content">
@@ -36,6 +38,7 @@ function App() {
                         } />
                         <Route path="/teams/:teamId" element={<TeamProfile />} />
                         <Route path="/player-rating" element={<PlayerRating />} />
+                        <Route path="/feed" element={<Feed />} />
                     </Routes>
                 </main>
             </div>
