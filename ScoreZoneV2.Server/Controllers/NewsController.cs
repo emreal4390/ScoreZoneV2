@@ -3,6 +3,7 @@ using System.Net.Http;
 using System.Threading.Tasks;
 using System.Text.Json;
 using System.Linq;
+using System.Xml.Linq;
 
 namespace ScoreZoneV2.Server.Controllers
 {
@@ -11,10 +12,12 @@ namespace ScoreZoneV2.Server.Controllers
     public class NewsController : ControllerBase
     {
         private readonly HttpClient _http;
+        private readonly IHttpClientFactory _httpClientFactory;
 
         public NewsController(IHttpClientFactory httpClientFactory)
         {
             _http = httpClientFactory.CreateClient();
+            _httpClientFactory = httpClientFactory;
         }
 
         [HttpGet]
@@ -61,6 +64,36 @@ namespace ScoreZoneV2.Server.Controllers
             var shuffledArticles = allArticles.OrderBy(x => random.Next()).Take(20).ToList();
 
             return Ok(new { articles = shuffledArticles });
+        }
+
+        [HttpGet("transfermarkt")]
+        public async Task<IActionResult> GetTransfermarktNews()
+        {
+            try
+            {
+                var client = _httpClientFactory.CreateClient();
+                var response = await client.GetStringAsync("https://www.transfermarkt.com.tr/rss/news");
+                return Ok(response);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, $"Haberler alınırken bir hata oluştu: {ex.Message}");
+            }
+        }
+
+        [HttpGet("foxsports")]
+        public async Task<IActionResult> GetFoxSportsNews()
+        {
+            try
+            {
+                var client = _httpClientFactory.CreateClient();
+                var response = await client.GetStringAsync("https://api.foxsports.com/v2/content/optimized-rss?partnerKey=MB0Wehpmuj2lUhuRhQaafhBjAJqaPU244mlTDK1i&size=30&tags=fs/soccer,soccer/epl/league/1,soccer/mls/league/5,soccer/ucl/league/7,soccer/europa/league/8,soccer/wc/league/12,soccer/euro/league/13,soccer/wwc/league/14,soccer/nwsl/league/20,soccer/cwc/league/26,soccer/gold_cup/league/32,soccer/unl/league/67");
+                return Ok(response);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, $"Haberler alınırken bir hata oluştu: {ex.Message}");
+            }
         }
     }
 }

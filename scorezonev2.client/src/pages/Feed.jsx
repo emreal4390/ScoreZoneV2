@@ -12,24 +12,53 @@ const Feed = () => {
     useEffect(() => {
         const fetchNews = async () => {
             try {
-                const response = await axios.get('https://www.transfermarkt.com.tr/rss/news');
-                const parser = new DOMParser();
-                const xmlDoc = parser.parseFromString(response.data, 'text/xml');
-                const items = xmlDoc.getElementsByTagName('item');
+                // Transfermarkt haberlerini çek
+                const transfermarktResponse = await axios.get('/api/news/transfermarkt');
+                const transfermarktParser = new DOMParser();
+                const transfermarktXml = transfermarktParser.parseFromString(transfermarktResponse.data, 'text/xml');
+                const transfermarktItems = transfermarktXml.getElementsByTagName('item');
                 
-                const newsArray = Array.from(items).map(item => ({
+                // Fox Sports haberlerini çek
+                const foxSportsResponse = await axios.get('/api/news/foxsports');
+                const foxSportsParser = new DOMParser();
+                const foxSportsXml = foxSportsParser.parseFromString(foxSportsResponse.data, 'text/xml');
+                const foxSportsItems = foxSportsXml.getElementsByTagName('item');
+
+                // Transfermarkt haberlerini işle
+                const transfermarktNews = Array.from(transfermarktItems).map(item => ({
                     title: item.getElementsByTagName('title')[0].textContent.trim(),
                     link: item.getElementsByTagName('link')[0].textContent.trim(),
                     pubDate: new Date(item.getElementsByTagName('pubDate')[0].textContent.trim()),
                     description: item.getElementsByTagName('description')[0].textContent.trim(),
-                    author: item.getElementsByTagName('author')[0].textContent.trim()
+                    author: item.getElementsByTagName('author')[0].textContent.trim(),
+                    source: 'Transfermarkt'
                 }));
 
-                setNews(newsArray);
+                // Fox Sports haberlerini işle
+                const foxSportsNews = Array.from(foxSportsItems).map(item => {
+                    const mediaContent = item.getElementsByTagName('media:content')[0];
+                    const imageUrl = mediaContent ? mediaContent.getAttribute('url') : null;
+                    
+                    return {
+                        title: item.getElementsByTagName('title')[0].textContent.trim(),
+                        link: item.getElementsByTagName('link')[0].textContent.trim(),
+                        pubDate: new Date(item.getElementsByTagName('pubDate')[0].textContent.trim()),
+                        description: item.getElementsByTagName('description')[0].textContent.trim(),
+                        imageUrl,
+                        source: 'Fox Sports'
+                    };
+                });
+
+                // Tüm haberleri birleştir ve tarihe göre sırala
+                const allNews = [...transfermarktNews, ...foxSportsNews]
+                    .sort((a, b) => b.pubDate - a.pubDate);
+
+                setNews(allNews);
                 setLoading(false);
             } catch (err) {
                 setError('Haberler yüklenirken bir hata oluştu.');
                 setLoading(false);
+                console.error('Haber yükleme hatası:', err);
             }
         };
 
@@ -56,7 +85,25 @@ const Feed = () => {
             <div className="feed-list">
                 {news.map((item, index) => (
                     <article key={index} className="feed-item">
+                        {item.imageUrl && (
+                            <div className="feed-image-container">
+                                <img 
+                                    src={item.imageUrl} 
+                                    alt={item.title}
+                                    className="feed-image"
+                                    onError={(e) => {
+                                        e.target.onerror = null;
+                                        e.target.src = 'https://www.transfermarkt.com.tr/images/logo.png';
+                                    }}
+                                />
+                            </div>
+                        )}
                         <div className="feed-content">
+                            <div className="feed-source">
+                                <span className={`source-badge ${item.source.toLowerCase().replace(' ', '-')}`}>
+                                    {item.source}
+                                </span>
+                            </div>
                             <h2 className="feed-title">
                                 <a href={item.link} target="_blank" rel="noopener noreferrer">
                                     {item.title}
@@ -67,10 +114,12 @@ const Feed = () => {
                                     <i className="fas fa-calendar-alt"></i>
                                     {format(item.pubDate, 'd MMMM yyyy HH:mm', { locale: tr })}
                                 </span>
-                                <span className="feed-author">
-                                    <i className="fas fa-user"></i>
-                                    {item.author}
-                                </span>
+                                {item.author && (
+                                    <span className="feed-author">
+                                        <i className="fas fa-user"></i>
+                                        {item.author}
+                                    </span>
+                                )}
                             </div>
                             <div 
                                 className="feed-description"

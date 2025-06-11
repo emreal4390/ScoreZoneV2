@@ -18,11 +18,9 @@ builder.Services.AddCors(options =>
     options.AddPolicy("AllowAll",
         builder =>
         {
-            builder
-                .WithOrigins("https://localhost:59431") // Frontend'in çalıştığı port
-                .AllowAnyMethod()
-                .AllowAnyHeader()
-                .AllowCredentials();
+            builder.AllowAnyOrigin()
+                   .AllowAnyMethod()
+                   .AllowAnyHeader();
         });
 });
 
