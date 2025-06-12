@@ -135,3 +135,119 @@
 .standings .team-link, .view-all-link a {
   color: #fbbf24;
 }
+
+.standings-container {
+    background: var(--background-card);
+    border-radius: 16px;
+    padding: 1.5rem;
+    margin-bottom: 1rem;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+    width: 100%;
+    max-width: 1200px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.standings-title {
+    color: #fbbf24;
+    font-size: 1.5rem;
+    font-weight: 700;
+    margin-bottom: 1.5rem;
+    text-align: center;
+}
+
+.standings-table {
+    width: 100%;
+    overflow-x: auto;
+}
+
+.standings-header {
+    margin-bottom: 0.5rem;
+}
+
+.standings-row {
+    display: grid;
+    grid-template-columns: 60px 1fr 80px;
+    gap: 12px;
+    padding: 8px;
+    align-items: center;
+    position: relative;
+}
+
+.standings-header .standings-row {
+    color: #fbbf24;
+    font-weight: 600;
+    border-bottom: 1px solid rgba(251, 191, 36, 0.2);
+}
+
+.standings-body .standings-row {
+    color: #fff;
+    transition: background-color 0.2s;
+}
+
+.standings-body .standings-row:hover {
+    background: var(--background-cardHover);
+    border-radius: 8px;
+}
+
+.standings-position {
+    text-align: center;
+    font-weight: 600;
+}
+
+.standings-team {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    color: #fff !important;
+    padding-right: 20px;
+}
+
+.standings-team img {
+    width: 24px;
+    height: 24px;
+    object-fit: contain;
+    flex-shrink: 0;
+}
+
+.standings-team .team-link {
+    color: #fff;
+    text-decoration: none;
+    transition: color 0.2s;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.standings-team .team-link:hover {
+    color: #fbbf24;
+}
+
+.standings-points {
+    text-align: right;
+    font-weight: 500;
+    min-width: 60px;
+    padding-right: 20px;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    font-family: monospace;
+    font-size: 1.1em;
+    position: absolute;
+    right: 0;
+}
+
+@media (max-width: 768px) {
+    .standings-container {
+        padding: 1rem;
+    }
+
+    .standings-row {
+        grid-template-columns: 50px 1fr 60px;
+        gap: 8px;
+    }
+
+    .standings-points {
+        padding-right: 10px;
+    }
+}

@@ -8,6 +8,7 @@ import TeamProfile from './pages/TeamProfile';
 import PlayerRating from './pages/PlayerRating.jsx';
 import Feed from './pages/Feed';
 import PlayerProfile from './pages/PlayerProfile';
+import FeaturedPlayers from './components/FeaturedPlayers';
 import './App.css';
 
 function App() {
@@ -15,10 +16,9 @@ function App() {
         <Router>
             <div className="app-container">
                 <header className="app-navbar">
-                    <div className="navbar-logo">ScoreZone</div>
+                    <Link to="/" className="navbar-logo">ScoreZone</Link>
                     <nav className="navbar-menu">
                         <Link to="/">Ana Sayfa</Link>
-                       
                         <Link to="/player-rating">Rating Hesaplama</Link>
                         <Link to="/feed">Akış</Link>
                     </nav>
@@ -33,6 +33,7 @@ function App() {
                                 </aside>
                                 <main className="center-panel">
                                     <NewsSlider />
+                                    <FeaturedPlayers />
                                     <Fixtures limit={9} />
                                 </main>
                             </div>

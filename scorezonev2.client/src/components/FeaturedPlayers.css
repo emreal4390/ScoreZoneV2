@@ -1,0 +1,146 @@
+.featured-players-container {
+    background: var(--background-card);
+    border-radius: 16px;
+    padding: 1.5rem;
+    margin: 1rem 0;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+    position: relative;
+}
+
+.featured-players-title {
+    color: #fbbf24;
+    font-size: 1.5rem;
+    font-weight: 700;
+    margin-bottom: 1.5rem;
+    text-align: center;
+}
+
+/* Swiper özelleştirmeleri */
+.swiper {
+    padding: 1rem 0;
+}
+
+.swiper-button-next,
+.swiper-button-prev {
+    color: #fbbf24 !important;
+    background: var(--background-cardSecondary);
+    width: 40px !important;
+    height: 40px !important;
+    border-radius: 50%;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+}
+
+.swiper-button-next:after,
+.swiper-button-prev:after {
+    font-size: 1.2rem !important;
+}
+
+.swiper-button-disabled {
+    opacity: 0.5 !important;
+}
+
+.swiper-pagination-bullet {
+    background: #fbbf24 !important;
+    opacity: 0.5;
+}
+
+.swiper-pagination-bullet-active {
+    opacity: 1;
+}
+
+.featured-player-card {
+    background: var(--background-cardSecondary);
+    border-radius: 12px;
+    padding: 1rem;
+    cursor: pointer;
+    transition: transform 0.2s, box-shadow 0.2s;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    height: 100%;
+}
+
+.featured-player-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+    background: var(--background-cardHover);
+}
+
+.featured-player-image {
+    width: 120px;
+    height: 120px;
+    border-radius: 50%;
+    overflow: hidden;
+    margin-bottom: 1rem;
+    border: 3px solid #fbbf24;
+    background: var(--background-cardSecondary);
+}
+
+.featured-player-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.featured-player-info h3 {
+    color: #fff;
+    font-size: 1.2rem;
+    font-weight: 600;
+    margin-bottom: 0.5rem;
+}
+
+.featured-player-info p {
+    color: #fbbf24;
+    font-size: 0.9rem;
+    font-weight: 500;
+}
+
+/* Yükleme durumu stilleri */
+.loading-placeholder {
+    background: linear-gradient(90deg, 
+        var(--background-cardSecondary) 25%, 
+        var(--background-cardHover) 50%, 
+        var(--background-cardSecondary) 75%
+    );
+    background-size: 200% 100%;
+    animation: loading 1.5s infinite;
+    border-radius: 4px;
+}
+
+.featured-player-card.loading .featured-player-image .loading-placeholder {
+    width: 100%;
+    height: 100%;
+}
+
+.featured-player-card.loading .featured-player-info .loading-placeholder {
+    width: 80%;
+    height: 1.2rem;
+    margin: 0.5rem auto;
+}
+
+.featured-player-card.loading .featured-player-info .loading-placeholder:last-child {
+    width: 60%;
+}
+
+@keyframes loading {
+    0% {
+        background-position: 200% 0;
+    }
+    100% {
+        background-position: -200% 0;
+    }
+}
+
+@media (max-width: 768px) {
+    .swiper-button-next,
+    .swiper-button-prev {
+        display: none !important;
+    }
+}
+
+@media (max-width: 480px) {
+    .featured-players-grid {
+        grid-template-columns: 1fr;
+    }
+} 

@@ -39,31 +39,31 @@ const Standings = () => {
     if (error) return <div>Hata: {error.message}</div>;
 
     return (
-        <div className={`standings ${isHomePage ? 'home-standings' : ''}`}>
-            {!isHomePage && <h2>Puan Durumu</h2>}
-            <table>
-                <thead>
-                    <tr>
-                        <th>Sıra</th>
-                        <th>Takım</th>
-                        <th>P</th>
-                    </tr>
-                </thead>
-                <tbody>
+        <div className="standings-container">
+            <h2 className="standings-title">Canlı Puan Durumu</h2>
+            <div className="standings-table">
+                <div className="standings-header">
+                    <div className="standings-row">
+                        <span className="standings-position">#</span>
+                        <span className="standings-team">Takım</span>
+                        <div className="standings-points">Puan</div>
+                    </div>
+                </div>
+                <div className="standings-body">
                     {table.map((team, index) => (
-                        <tr key={`${team.id}-${index}`}>
-                            <td>{index + 1}</td>
-                            <td className="team-cell">
+                        <div key={team.id} className="standings-row">
+                            <span className="standings-position" style={{ color: '#fff' }}>({index + 1})</span>
+                            <span className="standings-team" style={{ color: '#fff' }}>
                                 <img src={team.logo} alt={team.name} width={20} />
                                 <Link to={`/teams/${team.id}`} className="team-link">
                                     {team.name}
                                 </Link>
-                            </td>
-                            <td>{team.points}</td>
-                        </tr>
+                            </span>
+                            <div className="standings-points">{team.points}</div>
+                        </div>
                     ))}
-                </tbody>
-            </table>
+                </div>
+            </div>
         </div>
     );
 };

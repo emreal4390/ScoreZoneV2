@@ -47,43 +47,47 @@ a {
 
 /* Uygulama genel konteyneri */
 .app-container {
-    width: 100vw;
     min-height: 100vh;
     display: flex;
     flex-direction: column;
-    overflow-x: hidden;
-    background-color: #000000;
 }
 
 /* Başlık - Logo + Menü */
 .app-navbar {
-    background: var(--background2);
-    color: #fff;
+    background: var(--background-card);
+    padding: 1rem 2rem;
     display: flex;
-    align-items: center;
     justify-content: space-between;
-    padding: 0.7rem 2rem;
-    box-shadow: 0 2px 12px #0002;
+    align-items: center;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 1000;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
 }
 
 .navbar-logo {
-    font-size: 2rem;
-    font-weight: 800;
-    color: #fff;
-    letter-spacing: 1px;
-    font-family: 'Inter', 'Roboto', Arial, sans-serif;
+    color: #fbbf24;
+    font-size: 1.5rem;
+    font-weight: 700;
+    text-decoration: none;
+    transition: color 0.2s;
+}
+
+.navbar-logo:hover {
+    color: #f59e0b;
 }
 
 .navbar-menu {
     display: flex;
-    gap: 24px;
+    gap: 1.5rem;
 }
 
 .navbar-menu a {
-    color: #eee;
-    font-weight: 500;
-    margin-left: 1.5rem;
+    color: #fff;
     text-decoration: none;
+    font-weight: 500;
     transition: color 0.2s;
 }
 
@@ -93,16 +97,8 @@ a {
 
 /* İçerik */
 .app-content {
+    margin-top: 80px; /* Navbar yüksekliği kadar margin */
     flex: 1;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    padding-top: 80px;
-    width: 100%;
-    max-width: 100%;
-    margin: 0 auto;
-    box-sizing: border-box;
-    background-color: var(--background-main);
 }
 
 /* Ana sayfa içeriği için özel stil */

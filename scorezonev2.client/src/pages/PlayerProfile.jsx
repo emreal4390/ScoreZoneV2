@@ -4,6 +4,32 @@ import axios from 'axios';
 import '../styles/PlayerProfile.css';
 
 function InfoCard({ player }) {
+  // Yaş hesaplama
+  const calculateAge = (birthDate) => {
+    if (!birthDate) return null;
+    const today = new Date();
+    const birth = new Date(birthDate);
+    let age = today.getFullYear() - birth.getFullYear();
+    const monthDiff = today.getMonth() - birth.getMonth();
+    if (monthDiff < 0 || (monthDiff === 0 && today.getDate() < birth.getDate())) {
+      age--;
+    }
+    return age;
+  };
+
+  // Ayak bilgisini metadata'dan alma ve Türkçe'ye çevirme
+  const getPreferredFoot = () => {
+    if (!player?.metadata) return null;
+    const footData = player.metadata.find(m => m.type?.code === 'preferred-foot');
+    const foot = footData?.values;
+    if (foot === 'left') return 'Sol ';
+    if (foot === 'right') return 'Sağ ';
+    return foot || null;
+  };
+
+  const age = calculateAge(player?.date_of_birth);
+  const preferredFoot = getPreferredFoot();
+
   return (
     <div className="profile-card">
       <div className="profile-header">
@@ -16,28 +42,44 @@ function InfoCard({ player }) {
             )}
             <span>{player?.teams?.[0]?.team?.name}</span>
           </div>
-          <p>{player?.nationality?.name}</p>
+          <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
+            {player?.nationality?.image_path && (
+              <img src={player.nationality.image_path} alt={player.nationality.name} className="team-img" style={{ width: '24px', height: '24px' }} />
+            )}
+            <span>{player?.nationality?.name}</span>
+          </div>
         </div>
       </div>
       <div className="profile-info-grid">
-        <div><b>Yaş:</b> {player?.age}</div>
-        <div><b>Boy:</b> {player?.height} cm</div>
-        <div><b>Kilo:</b> {player?.weight} kg</div>
-        <div><b>Pozisyon:</b> {player?.detailedposition?.name}</div>
-        <div><b>Ayak:</b> {player?.preferred_foot}</div>
+        <div><b>Yaş:</b> {age || '-'}</div>
+        <div><b>Boy:</b> {player?.height || '-'} cm</div>
+        <div><b>Kilo:</b> {player?.weight || '-'} kg</div>
+        <div><b>Pozisyon:</b> {player?.detailedposition?.name || '-'}</div>
+        <div><b>Ayak:</b> {preferredFoot || '-'}</div>
       </div>
     </div>
   );
 }
 
 function CareerCard({ teams }) {
+  const formatDate = (dateStr) => {
+    if (!dateStr) return '-';
+    const date = new Date(dateStr);
+    const months = ['Ocak', 'Şubat', 'Mart', 'Nisan', 'Mayıs', 'Haziran', 'Temmuz', 'Ağustos', 'Eylül', 'Ekim', 'Kasım', 'Aralık'];
+    return `${date.getFullYear()} ${months[date.getMonth()]}`;
+  };
+
   return (
     <div className="profile-card">
       <h3>Kariyer</h3>
       <ul>
         {teams?.map((item, i) => (
-          <li key={i}>
-            <b>{item.team?.name}</b> <span>({item.start ?? '-'} - {item.end ?? '-'})</span>
+          <li key={i} style={{ display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '12px' }}>
+            {item.team?.image_path && (
+              <img src={item.team.image_path} alt={item.team.name} className="team-img" style={{ width: '24px', height: '24px' }} />
+            )}
+            <span><b>{item.team?.name}</b></span>
+            <span>({formatDate(item.start)} - {formatDate(item.end)})</span>
           </li>
         ))}
       </ul>
@@ -47,19 +89,37 @@ function CareerCard({ teams }) {
 
 function StatsCard({ stats }) {
   if (!stats?.length) return null;
-  const s = stats[0];
+
+  const getStatValue = (statType) => {
+    const stat = stats.find(s => s.type?.code === statType);
+    return stat?.value?.total || 0;
+  };
+
+  const getStatName = (statType) => {
+    const stat = stats.find(s => s.type?.code === statType);
+    return stat?.type?.name || statType;
+  };
+
+  const statTypes = [
+    'appearances',
+    'minutes-played',
+    'goals',
+    'assists',
+    'passes',
+    'shots-total',
+    'shots-on-target',
+    'rating'
+  ];
+
   return (
     <div className="profile-card">
       <h3>İstatistikler</h3>
       <div className="profile-stats-grid">
-        <div><b>Maç:</b> {s.appearances}</div>
-        <div><b>Gol:</b> {s.goals}</div>
-        <div><b>Asist:</b> {s.assists}</div>
-        <div><b>Dakika:</b> {s.minutes}</div>
-        <div><b>Pas:</b> {s.passes}</div>
-        <div><b>Şut:</b> {s.shots_total}</div>
-        <div><b>İsabetli Şut:</b> {s.shots_on_target}</div>
-        <div><b>Puan:</b> {s.rating}</div>
+        {statTypes.map((type, index) => (
+          <div key={index}>
+            <b>{getStatName(type)}:</b> {getStatValue(type)}
+          </div>
+        ))}
       </div>
     </div>
   );
@@ -139,18 +199,9 @@ export default function PlayerProfile() {
       <div className="profile-grid">
         <InfoCard player={player} />
         <CareerCard teams={player?.teams} />
-        <StatsCard stats={player?.statistics} />
         <TrophiesTabs trophies={player?.trophies} />
       </div>
     </div>
   );
 }
 
-// Basit stiller için öneri:
-// .player-profile-layout { max-width: 1100px; margin: 0 auto; padding: 2rem; }
-// .profile-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; }
-// .profile-card { background: #fff; border-radius: 16px; box-shadow: 0 2px 12px #0001; padding: 1.5rem; }
-// .profile-header { display: flex; gap: 1rem; align-items: center; }
-// .profile-img { width: 80px; height: 80px; border-radius: 50%; object-fit: cover; }
-// .profile-info-grid, .profile-stats-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 0.5rem; }
-// .profile-trophy-list { list-style: none; padding: 0; } 
