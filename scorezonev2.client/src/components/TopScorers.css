@@ -1,6 +1,6 @@
 .topscorers-container {
     width: 100%;
-    background: #181f2a;
+    background: var(--background-card);
     border-radius: 16px;
     box-shadow: 0 2px 8px rgba(0,0,0,0.2);
     padding: 24px 18px;
@@ -27,19 +27,20 @@
     display: flex;
     align-items: center;
     gap: 14px;
-    background: #232b3b;
+    background: var(--background-cardSecondary);
     border-radius: 8px;
     padding: 8px 12px;
     transition: background 0.2s;
+    color: #fff;
 }
 .topscorer-row:hover {
-    background: #2d3750;
+    background: var(--background-cardHover);
 }
 .topscorer-rank {
     width: 24px;
     font-size: 1.1rem;
     font-weight: bold;
-    color: #00a3ff;
+    color: #fbbf24;
     text-align: center;
 }
 .topscorer-img {

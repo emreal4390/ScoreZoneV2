@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { useParams } from 'react-router-dom';
+import { useParams, useNavigate } from 'react-router-dom';
 import { useQuery } from '@tanstack/react-query';
 import { getSquad } from '../api/backend';
 import TeamFixtures from '../components/TeamFixtures';
@@ -23,6 +23,7 @@ const positionOrder = ['Forvet', 'Orta Saha', 'Defans', 'Kaleci'];
 const TeamProfile = () => {
     const { teamId } = useParams();
     const [activeTab, setActiveTab] = useState('squad');
+    const navigate = useNavigate();
 
     const { data, isLoading, error } = useQuery({
         queryKey: ['squad', SEASON_ID, teamId],
@@ -55,7 +56,7 @@ const TeamProfile = () => {
                                     <h3 className="squad-position-title">{pos}</h3>
                                     <div className="squad-list">
                                         {grouped[pos].map((item) => (
-                                            <div className="squad-player-card small" key={item.id}>
+                                            <div className="squad-player-card small" key={item.id} onClick={() => navigate(`/players/${item.player?.id}`)} style={{ cursor: 'pointer' }}>
                                                 <img src={item.player?.image_path} alt={item.player?.display_name} className="squad-player-img" />
                                                 <div className="squad-player-info">
                                                     <div className="squad-player-name">{item.player?.display_name}</div>

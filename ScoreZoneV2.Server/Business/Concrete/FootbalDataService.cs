@@ -129,5 +129,13 @@ namespace Business.Concrete
                 return "{}";
             }
         }
+
+        public async Task<string> GetPlayerByIdWithIncludeAsync(int playerId, string include)
+        {
+            var url = AddToken($"{BaseUrl}/players/{playerId}?include={include}");
+            var response = await _httpClient.GetAsync(url);
+            response.EnsureSuccessStatusCode();
+            return await response.Content.ReadAsStringAsync();
+        }
     }
 }

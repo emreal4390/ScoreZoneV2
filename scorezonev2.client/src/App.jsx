@@ -7,6 +7,7 @@ import TopScorers from './components/TopScorers';
 import TeamProfile from './pages/TeamProfile';
 import PlayerRating from './pages/PlayerRating.jsx';
 import Feed from './pages/Feed';
+import PlayerProfile from './pages/PlayerProfile';
 import './App.css';
 
 function App() {
@@ -17,7 +18,7 @@ function App() {
                     <div className="navbar-logo">ScoreZone</div>
                     <nav className="navbar-menu">
                         <Link to="/">Ana Sayfa</Link>
-                        <Link to="/standings">Puan Durumu</Link>
+                       
                         <Link to="/player-rating">Rating Hesaplama</Link>
                         <Link to="/feed">Akış</Link>
                     </nav>
@@ -39,6 +40,7 @@ function App() {
                         <Route path="/teams/:teamId" element={<TeamProfile />} />
                         <Route path="/player-rating" element={<PlayerRating />} />
                         <Route path="/feed" element={<Feed />} />
+                        <Route path="/players/:playerId" element={<PlayerProfile />} />
                     </Routes>
                 </main>
             </div>

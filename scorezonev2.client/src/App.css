@@ -1,5 +1,28 @@
 ﻿/* Global */
 
+:root {
+  --background0: #1d1d1d;
+  --background1: #0a0a0a;
+  --background2: #141414;
+  --background3: #282828;
+  --background4: #0a0a0a;
+  --background5: #0a0a0a;
+  --background6: #202020;
+  --background-main: #000;
+  --background-card: #1d1d1d;
+  --background-cardSecondary: #2b2b2b;
+  --background-cardHover: #333;
+  --background-placeholder: #333;
+  --background-placeholder2: #333;
+  --background-dialog: #1d1d1d;
+  --borderColor1: #000;
+  --borderColor2: #282828;
+  --borderColor3: #333;
+  --borderColor4: #333;
+  --borderColor5: #000;
+  --borderColor6: #464646;
+}
+
 body {
     margin: 0;
     font-family: 'Segoe UI', sans-serif;
@@ -34,45 +57,38 @@ a {
 
 /* Başlık - Logo + Menü */
 .app-navbar {
-    background-color: #0a1929;
-    color: white;
-    padding: 20px 40px;
+    background: var(--background2);
+    color: #fff;
     display: flex;
-    justify-content: space-between;
     align-items: center;
-    position: fixed;
-    top: 0;
-    left: 0;
-    right: 0;
-    width: 100%;
-    z-index: 1000;
-    box-shadow: 0 2px 5px rgba(0,0,0,0.3);
-    box-sizing: border-box;
+    justify-content: space-between;
+    padding: 0.7rem 2rem;
+    box-shadow: 0 2px 12px #0002;
 }
 
 .navbar-logo {
-    font-size: 1.5rem;
-    font-weight: bold;
-    white-space: nowrap;
+    font-size: 2rem;
+    font-weight: 800;
     color: #fff;
+    letter-spacing: 1px;
+    font-family: 'Inter', 'Roboto', Arial, sans-serif;
 }
 
 .navbar-menu {
     display: flex;
-    align-items: center;
     gap: 24px;
 }
 
 .navbar-menu a {
-    color: #fff;
-    font-size: 1.08rem;
+    color: #eee;
     font-weight: 500;
+    margin-left: 1.5rem;
     text-decoration: none;
     transition: color 0.2s;
 }
 
 .navbar-menu a:hover {
-    color: #00a3ff;
+    color: #fbbf24;
 }
 
 /* İçerik */
@@ -86,7 +102,7 @@ a {
     max-width: 100%;
     margin: 0 auto;
     box-sizing: border-box;
-    background-color: #000000;
+    background-color: var(--background-main);
 }
 
 /* Ana sayfa içeriği için özel stil */
@@ -278,7 +294,7 @@ td {
     gap: 2.5rem;
     width: 100vw;
     min-height: 100vh;
-    background: #0a1929;
+    background: var(--background-main);
     color: #fff;
     padding: 40px 0 0 0;
     box-sizing: border-box;
@@ -318,7 +334,7 @@ td {
 }
 
 .left-panel > *, .center-panel > *, .right-panel > * {
-    background: #181f2a;
+    background: var(--background-card);
     border-radius: 16px;
     box-shadow: 0 2px 8px rgba(0,0,0,0.2);
     padding: 24px 18px;
@@ -339,46 +355,6 @@ td {
     .center-panel > *, .right-panel > * {
         max-width: 100%;
     }
-}
-
-.app-navbar {
-    position: fixed;
-    top: 0;
-    left: 0;
-    right: 0;
-    height: 64px;
-    background: #101828;
-    color: #fff;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding: 0 40px;
-    z-index: 100;
-    box-shadow: 0 2px 8px rgba(0,0,0,0.18);
-}
-
-.navbar-logo {
-    font-size: 1.5rem;
-    font-weight: bold;
-    letter-spacing: 1px;
-    color: #00a3ff;
-}
-
-.navbar-menu {
-    display: flex;
-    gap: 24px;
-}
-
-.navbar-menu a {
-    color: #fff;
-    font-size: 1.08rem;
-    font-weight: 500;
-    text-decoration: none;
-    transition: color 0.2s;
-}
-
-.navbar-menu a:hover {
-    color: #00a3ff;
 }
 
 .main-layout {

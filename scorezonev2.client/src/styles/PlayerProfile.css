@@ -1,0 +1,113 @@
+body, .player-profile-layout {
+  background: var(--background-main) !important;
+  font-family: 'Inter', 'Roboto', Arial, sans-serif;
+}
+.player-profile-layout {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 2rem 1rem;
+}
+.profile-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 2rem;
+}
+@media (max-width: 900px) {
+  .profile-grid {
+    grid-template-columns: 1fr;
+  }
+}
+.profile-card {
+  background: var(--background-card);
+  border-radius: 18px;
+  box-shadow: 0 2px 16px #0004;
+  padding: 1.7rem 1.5rem;
+  margin-bottom: 1rem;
+  transition: box-shadow 0.2s, transform 0.2s;
+  color: #fff;
+}
+.profile-card:hover {
+  box-shadow: 0 6px 32px #0006;
+  background: var(--background-cardHover);
+  transform: translateY(-2px) scale(1.01);
+}
+.profile-header {
+  display: flex;
+  gap: 1.2rem;
+  align-items: center;
+  margin-bottom: 1.2rem;
+}
+.profile-img {
+  width: 90px;
+  height: 90px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 3px solid #333;
+  background: #181a20;
+}
+.profile-info-grid, .profile-stats-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0.7rem;
+}
+.profile-info-grid div, .profile-stats-grid div {
+  color: #fff;
+  font-size: 1.05rem;
+}
+.profile-card h2, .profile-card h3 {
+  color: #fbbf24;
+  font-weight: 700;
+  letter-spacing: 0.5px;
+  margin-bottom: 0.5rem;
+}
+.profile-trophy-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+.profile-trophy-list li {
+  margin-bottom: 0.7rem;
+  padding-left: 0.7rem;
+  border-left: 3px solid #fbbf24;
+  background: var(--background-cardSecondary);
+  border-radius: 6px;
+  display: flex;
+  align-items: center;
+  gap: 0.7rem;
+}
+.trophy-img, .team-img {
+  width: 32px;
+  height: 32px;
+  object-fit: contain;
+  border-radius: 6px;
+  background: #23272f;
+  border: 1px solid #333;
+}
+.profile-trophy-list .trophy-info {
+  display: flex;
+  flex-direction: column;
+}
+.trophy-tab {
+  background: var(--background-cardSecondary);
+  color: #fff;
+  border: none;
+  border-radius: 8px 8px 0 0;
+  padding: 0.5rem 1.1rem;
+  font-size: 1rem;
+  font-weight: 500;
+  margin-right: 4px;
+  cursor: pointer;
+  opacity: 0.7;
+  transition: background 0.2s, color 0.2s, opacity 0.2s;
+}
+.trophy-tab.active, .trophy-tab:hover {
+  background: var(--background-cardHover);
+  color: #fbbf24;
+  opacity: 1;
+}
+@media (max-width: 600px) {
+  .trophy-tab {
+    font-size: 0.95rem;
+    padding: 0.4rem 0.7rem;
+  }
+} 

@@ -9,6 +9,7 @@
         Task<string> GetTopScorersByStageAsync(long stageId);
 
         Task<string> GetPlayerByIdAsync(int playerId);
+        Task<string> GetPlayerByIdWithIncludeAsync(int playerId, string include);
 
         Task<string> GetTeamByIdAsync(int teamId);
   

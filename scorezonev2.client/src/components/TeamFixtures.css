@@ -1,12 +1,13 @@
 .team-fixtures-container {
     width: 100%;
     max-width: 100%;
-    background: #181f2a;
+    background: var(--background-card);
     border-radius: 16px;
     box-shadow: 0 2px 8px rgba(0,0,0,0.2);
     padding: 24px;
     margin: 0;
     box-sizing: border-box;
+    color: #fff;
 }
 
 .team-fixtures-title {
@@ -29,14 +30,14 @@
     grid-template-columns: 150px 1fr 200px;
     align-items: center;
     gap: 20px;
-    background: #232b3b;
+    background: var(--background-cardSecondary);
     border-radius: 8px;
     padding: 12px 16px;
     transition: all 0.2s ease;
 }
 
 .team-fixture-row:hover {
-    background: #2d3750;
+    background: var(--background-cardHover);
     transform: translateX(5px);
 }
 
@@ -83,14 +84,14 @@
 }
 
 .team-fixture-vs {
-    color: #00a3ff;
+    color: #fbbf24;
     font-weight: bold;
     font-size: 1.1rem;
     padding: 4px 12px;
     text-align: center;
     min-width: 60px;
     border-radius: 6px;
-    background: rgba(0, 163, 255, 0.1);
+    background: var(--background-placeholder);
 }
 
 .team-fixture-venue {
@@ -140,7 +141,7 @@
 /* Maç detayları */
 .match-details {
     grid-column: 1 / -1;
-    background: #1a2234;
+    background: var(--background-cardHover);
     border-radius: 8px;
     padding: 20px;
     margin-top: 12px;
@@ -150,7 +151,7 @@
 .match-details-section {
     margin-top: 20px;
     padding: 15px;
-    background: rgba(255, 255, 255, 0.05);
+    background: var(--background-cardSecondary);
     border-radius: 8px;
 }
 

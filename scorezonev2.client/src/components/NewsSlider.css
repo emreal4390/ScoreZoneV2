@@ -43,10 +43,11 @@
     text-align: left;
     font-size: 1.8rem;
     margin-bottom: 1rem;
-    border-left: 6px solid #1e1e1e;
+    border-left: 6px solid var(--background-cardHover);
     padding-left: 10px;
     width: 80%;
     max-width: 1000px;
+    color: #fff;
 }
 
 /* Slider container */
@@ -82,8 +83,8 @@
     left: 0;
     width: 100%;
     padding: 15px;
-    background: linear-gradient(to top, rgba(0, 0, 0, 0.85), rgba(0, 0, 0, 0.5));
-    color: white;
+    background: linear-gradient(to top, var(--background-card), rgba(0,0,0,0.5));
+    color: #fff;
     border-radius: 0 0 10px 10px;
     min-height: 90px;
     display: flex;

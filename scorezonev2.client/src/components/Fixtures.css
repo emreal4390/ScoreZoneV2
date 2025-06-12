@@ -1,6 +1,6 @@
 .fixtures-container {
     padding: 20px;
-    background: #fff;
+    background: var(--background-card);
     border-radius: 8px;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
     margin: 20px 0;
@@ -19,15 +19,17 @@
 }
 
 .fixture-card {
-    background: #f8f9fa;
+    background: var(--background-cardSecondary);
     border-radius: 6px;
     padding: 15px;
     transition: transform 0.2s ease;
+    color: #fff;
 }
 
 .fixture-card:hover {
     transform: translateY(-2px);
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    background: var(--background-cardHover);
 }
 
 .fixture-date {
@@ -95,21 +97,22 @@
     display: flex;
     align-items: center;
     justify-content: space-between;
-    background: #232b3b;
+    background: var(--background-cardSecondary);
     border-radius: 12px;
     padding: 14px 12px;
     margin-bottom: 4px;
     box-shadow: 0 2px 4px rgba(0,0,0,0.1);
     transition: background 0.2s;
     min-width: 0;
+    color: #fff;
 }
 
 .fixture-row:hover {
-    background: #2d3750;
+    background: var(--background-cardHover);
 }
 
 .fixture-row-date {
-    color: #8fa2c7;
+    color: #b0b8c9;
     font-size: 1rem;
     min-width: 100px;
     text-align: left;
@@ -126,7 +129,6 @@
     justify-content: space-between;
     font-size: 1.2rem;
     font-weight: 500;
-    color: #fff;
     min-width: 0;
     padding: 0 20px;
 }
@@ -149,7 +151,7 @@
 }
 
 .fixture-row-vs {
-    color: #8fa2c7;
+    color: #b0b8c9;
     font-size: 1.3rem;
     font-weight: 600;
     padding: 0 15px;

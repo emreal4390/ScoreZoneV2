@@ -120,3 +120,18 @@
 .view-all-link a:hover {
     text-decoration: underline;
 }
+
+.standings table, .standings td, .standings th, .home-standings table, .home-standings th, .home-standings td {
+  background: var(--background-card) !important;
+  color: #fff;
+  border-bottom: 1px solid var(--borderColor2) !important;
+}
+.standings tr:hover td, .home-standings tr:hover td {
+  background: var(--background-cardHover) !important;
+}
+.standings th, .home-standings th {
+  background: var(--background-cardSecondary) !important;
+}
+.standings .team-link, .view-all-link a {
+  color: #fbbf24;
+}

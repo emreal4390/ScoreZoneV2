@@ -1,7 +1,7 @@
 .team-profile-container {
     width: 100%;
     max-width: 1400px;
-    background: #181f2a;
+    background: var(--background-card);
     border-radius: 16px;
     box-shadow: 0 2px 8px rgba(0,0,0,0.2);
     padding: 32px 24px;
@@ -14,14 +14,14 @@
     display: flex;
     gap: 1rem;
     margin-bottom: 2rem;
-    border-bottom: 1px solid #2d3750;
+    border-bottom: 1px solid var(--borderColor2);
     padding-bottom: 1rem;
 }
 
 .team-profile-tab {
     background: none;
     border: none;
-    color: #8fa2c7;
+    color: #b0b8c9;
     font-size: 1.1rem;
     font-weight: 500;
     padding: 0.5rem 1rem;
@@ -32,12 +32,12 @@
 
 .team-profile-tab:hover {
     color: #fff;
-    background: #2d3750;
+    background: var(--background-cardHover);
 }
 
 .team-profile-tab.active {
-    color: #00a3ff;
-    background: #2d3750;
+    color: #fbbf24;
+    background: var(--background-cardSecondary);
 }
 
 .team-profile-content {
@@ -47,13 +47,13 @@
 .team-profile-title {
     font-size: 1.5rem;
     margin-bottom: 24px;
-    color: #00a3ff;
+    color: #fff;
     text-align: center;
 }
 
 .squad-position-title {
     font-size: 1.15rem;
-    color: #ffb300;
+    color: #fbbf24;
     margin: 18px 0 10px 0;
     font-weight: 600;
     letter-spacing: 0.5px;
@@ -67,7 +67,7 @@
 }
 
 .squad-player-card {
-    background: #232b3b;
+    background: var(--background-cardSecondary);
     border-radius: 10px;
     padding: 10px 6px;
     width: 110px;
@@ -82,13 +82,17 @@
     padding: 6px 2px;
 }
 
+.squad-player-card:hover {
+    background: var(--background-cardHover);
+}
+
 .squad-player-img {
     width: 32px;
     height: 32px;
     border-radius: 50%;
     object-fit: cover;
     margin-bottom: 5px;
-    background: #fff;
+    background: var(--background-placeholder);
 }
 
 .squad-player-info {
@@ -102,7 +106,7 @@
 }
 
 .squad-player-jersey {
-    color: #00a3ff;
+    color: #fbbf24;
     font-size: 0.85rem;
 }
 
