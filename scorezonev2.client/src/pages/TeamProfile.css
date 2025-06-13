@@ -1,12 +1,23 @@
+:root, .theme-dark {
+    --background-card: #232323;
+    --background-cardSecondary: #181818;
+    --background-cardHover: #2c2c2c;
+    --background-placeholder: #222;
+    --borderColor2: #333;
+    --text-main: #fff;
+    --text-secondary: #b0b8c9;
+    --accent: #61df6e;
+}
+
 .team-profile-container {
     width: 100%;
     max-width: 1400px;
-    background: var(--background-card);
+    background: var(--background-card, #232323);
     border-radius: 16px;
     box-shadow: 0 2px 8px rgba(0,0,0,0.2);
     padding: 32px 24px;
     margin: 0 auto;
-    color: #fff;
+    color: var(--text-main, #fff);
     box-sizing: border-box;
 }
 
@@ -14,14 +25,14 @@
     display: flex;
     gap: 1rem;
     margin-bottom: 2rem;
-    border-bottom: 1px solid var(--borderColor2);
+    border-bottom: 1px solid var(--borderColor2, #333);
     padding-bottom: 1rem;
 }
 
 .team-profile-tab {
     background: none;
     border: none;
-    color: #b0b8c9;
+    color: var(--text-secondary, #b0b8c9);
     font-size: 1.1rem;
     font-weight: 500;
     padding: 0.5rem 1rem;
@@ -31,13 +42,13 @@
 }
 
 .team-profile-tab:hover {
-    color: #fff;
-    background: var(--background-cardHover);
+    color: var(--text-main, #fff);
+    background: var(--background-cardHover, #2c2c2c);
 }
 
 .team-profile-tab.active {
     color: #fbbf24;
-    background: var(--background-cardSecondary);
+    background: var(--background-cardSecondary, #181818);
 }
 
 .team-profile-content {
@@ -47,13 +58,13 @@
 .team-profile-title {
     font-size: 1.5rem;
     margin-bottom: 24px;
-    color: #fff;
+    color: var(--text-main, #fff);
     text-align: center;
 }
 
 .squad-position-title {
     font-size: 1.15rem;
-    color: #fbbf24;
+    color: var(--text-main, #fff);
     margin: 18px 0 10px 0;
     font-weight: 600;
     letter-spacing: 0.5px;
@@ -67,7 +78,7 @@
 }
 
 .squad-player-card {
-    background: var(--background-cardSecondary);
+    background: var(--background-cardSecondary, #181818);
     border-radius: 10px;
     padding: 10px 6px;
     width: 110px;
@@ -83,7 +94,7 @@
 }
 
 .squad-player-card:hover {
-    background: var(--background-cardHover);
+    background: var(--background-cardHover, #2c2c2c);
 }
 
 .squad-player-img {
@@ -92,7 +103,7 @@
     border-radius: 50%;
     object-fit: cover;
     margin-bottom: 5px;
-    background: var(--background-placeholder);
+    background: var(--background-placeholder, #222);
 }
 
 .squad-player-info {
@@ -106,13 +117,109 @@
 }
 
 .squad-player-jersey {
-    color: #fbbf24;
+    color: var(--accent, #61df6e);
     font-size: 0.85rem;
 }
 
 .squad-player-position {
-    color: #b0b8c9;
+    color: var(--text-secondary, #b0b8c9);
     font-size: 0.95rem;
+}
+
+.squad-table-wrapper {
+    width: 100%;
+    overflow-x: auto;
+    margin-top: 24px;
+    background: var(--background-cardSecondary, #181818);
+}
+
+.squad-table {
+    width: 100%;
+    border-collapse: collapse;
+    background: var(--background-cardSecondary, #181818);
+    border-radius: 12px;
+    overflow: hidden;
+    font-size: 0.98rem;
+    min-width: 800px;
+    color: var(--text-main, #fff);
+}
+
+.squad-table th, .squad-table td {
+    padding: 12px 10px;
+    text-align: left;
+    border-bottom: 1px solid var(--borderColor2, #333);
+}
+
+.squad-table th {
+    background: var(--background-card, #232323);
+    color: var(--text-main, #fff);
+    font-weight: 600;
+    font-size: 1.05rem;
+}
+
+.squad-table td, .squad-table-row {
+    background: var(--background-cardSecondary, #181818) !important;
+    color: var(--text-main, #fff) !important;
+}
+
+.squad-table-row:hover, .squad-table tr:hover > td {
+    background: var(--background-cardHover, #2c2c2c) !important;
+    transition: background 0.2s;
+}
+
+.squad-table-img {
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    object-fit: cover;
+    background: var(--background-placeholder, #222);
+    border: 1.5px solid var(--borderColor2, #333);
+}
+
+.squad-table-flag {
+    width: 22px;
+    height: 16px;
+    object-fit: contain;
+    border-radius: 3px;
+    border: 1.5px solid #444;
+    background: none;
+    box-shadow: 0 1px 4px rgba(0,0,0,0.18);
+    display: inline-block;
+}
+
+.team-img {
+    width: 24px;
+    height: 24px;
+    object-fit: contain;
+    border-radius: 6px;
+    background: #23272f;
+    border: 1px solid #333;
+    display: inline-block;
+}
+
+@media (max-width: 900px) {
+    .squad-table {
+        min-width: 600px;
+        font-size: 0.93rem;
+    }
+    .squad-table-img {
+        width: 28px;
+        height: 28px;
+    }
+    .squad-table-flag {
+        width: 16px;
+        height: 12px;
+    }
+}
+
+@media (max-width: 600px) {
+    .squad-table {
+        min-width: 400px;
+        font-size: 0.88rem;
+    }
+    .squad-table th, .squad-table td {
+        padding: 7px 4px;
+    }
 }
 
 @media (max-width: 768px) {

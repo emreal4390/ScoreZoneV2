@@ -100,7 +100,7 @@ namespace Business.Concrete
 
         public async Task<string> GetSquadBySeasonAndTeamAsync(long seasonId, long teamId)
         {
-            var url = AddToken($"{BaseUrl}/squads/seasons/{seasonId}/teams/{teamId}?include=player");
+            var url = AddToken($"{BaseUrl}/squads/seasons/{seasonId}/teams/{teamId}?include=player.nationality");
             var response = await _httpClient.GetAsync(url);
             response.EnsureSuccessStatusCode();
             return await response.Content.ReadAsStringAsync();
