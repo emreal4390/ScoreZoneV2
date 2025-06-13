@@ -9,6 +9,7 @@ import PlayerRating from './pages/PlayerRating.jsx';
 import Feed from './pages/Feed';
 import PlayerProfile from './pages/PlayerProfile';
 import FeaturedPlayers from './components/FeaturedPlayers';
+import PlayerComparison from './components/PlayerComparison';
 import './App.css';
 
 function App() {
@@ -36,6 +37,9 @@ function App() {
                                     <FeaturedPlayers />
                                     <Fixtures limit={9} />
                                 </main>
+                                <aside className="right-panel">
+                                    <PlayerComparison />
+                                </aside>
                             </div>
                         } />
                         <Route path="/teams/:teamId" element={<TeamProfile />} />
