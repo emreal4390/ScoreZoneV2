@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
-import { HelpOutline, Add, Remove } from '@mui/icons-material';
+import { SportsSoccer, TrendingUp, Shield, Speed, EmojiEvents } from '@mui/icons-material';
 import './PlayerRating.css';
 
 const PlayerRating = () => {
@@ -40,8 +40,7 @@ const PlayerRating = () => {
     });
 
     const [rating, setRating] = useState(null);
-    const [showHelp, setShowHelp] = useState(false);
-    const [helpPosition, setHelpPosition] = useState({ x: 0, y: 0 });
+    const [isLoading, setIsLoading] = useState(false);
 
     const handleInputChange = (e) => {
         const { name, value } = e.target;
@@ -53,6 +52,7 @@ const PlayerRating = () => {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
+        setIsLoading(true);
         try {
             // Boş değerleri 0 ile doldur
             const filledData = Object.fromEntries(
@@ -64,381 +64,168 @@ const PlayerRating = () => {
         } catch (error) {
             console.error('Error:', error);
             alert('Oyuncu puanı hesaplanırken bir hata oluştu.');
+        } finally {
+            setIsLoading(false);
         }
     };
 
-    const handleHelpClick = (e) => {
-        const rect = e.currentTarget.getBoundingClientRect();
-        setHelpPosition({
-            x: rect.left,
-            y: rect.bottom + window.scrollY
-        });
-        setShowHelp(!showHelp);
+    const getRatingColor = (rating) => {
+        if (rating >= 90) return '#FFD700'; // Altın
+        if (rating >= 80) return '#4CAF50'; // Yeşil
+        if (rating >= 70) return '#2196F3'; // Mavi
+        if (rating >= 60) return '#FF9800'; // Turuncu
+        return '#F44336'; // Kırmızı
     };
 
-    const handleRatingChange = (amount) => {
-        setRating(prev => {
-            const newRating = prev + amount;
-            return Math.max(0, Math.min(100, newRating));
-        });
-    };
+    const statCategories = [
+        {
+            title: 'Temel Bilgiler',
+            icon: <SportsSoccer />,
+            fields: [
+                { name: 'minutesPlayed', label: 'Oynanan Dakika', type: 'number' }
+            ]
+        },
+        {
+            title: 'Hücum İstatistikleri',
+            icon: <TrendingUp />,
+            fields: [
+                { name: 'goals', label: 'Gol', type: 'number' },
+                { name: 'assists', label: 'Asist', type: 'number' },
+                { name: 'shotsTotal', label: 'Toplam Şut', type: 'number' },
+                { name: 'shotsOnTarget', label: 'İsabetli Şut', type: 'number' },
+                { name: 'bigChancesCreated', label: 'Oluşturulan Büyük Fırsat', type: 'number' },
+                { name: 'bigChancesMissed', label: 'Kaçırılan Büyük Fırsat', type: 'number' }
+            ]
+        },
+        {
+            title: 'Pas ve Top Hakimiyeti',
+            icon: <Speed />,
+            fields: [
+                { name: 'passes', label: 'Pas', type: 'number' },
+                { name: 'accuratePasses', label: 'İsabetli Pas', type: 'number' },
+                { name: 'keyPasses', label: 'Kritik Pas', type: 'number' },
+                { name: 'throughBallsWon', label: 'Kazanılan Ara Pas', type: 'number' },
+                { name: 'dribbleAttempts', label: 'Dribling Denemesi', type: 'number' },
+                { name: 'successfulDribbles', label: 'Başarılı Dribling', type: 'number' },
+                { name: 'possessionLost', label: 'Top Kaybı', type: 'number' }
+            ]
+        },
+        {
+            title: 'Savunma İstatistikleri',
+            icon: <Shield />,
+            fields: [
+                { name: 'tackles', label: 'Müdahale', type: 'number' },
+                { name: 'tacklesWon', label: 'Başarılı Müdahale', type: 'number' },
+                { name: 'interceptions', label: 'Top Çalma', type: 'number' },
+                { name: 'clearances', label: 'Top Temizleme', type: 'number' },
+                { name: 'lastManTackle', label: 'Son Adam Müdahalesi', type: 'number' },
+                { name: 'saves', label: 'Kurtarış', type: 'number' },
+                { name: 'goalsConceded', label: 'Yenen Gol', type: 'number' }
+            ]
+        },
+        {
+            title: 'Düello ve Hava Hakimiyeti',
+            icon: <EmojiEvents />,
+            fields: [
+                { name: 'duelsWon', label: 'Kazanılan Düello', type: 'number' },
+                { name: 'totalDuels', label: 'Toplam Düello', type: 'number' },
+                { name: 'aerialsWon', label: 'Kazanılan Hava Topu', type: 'number' },
+                { name: 'aerials', label: 'Toplam Hava Topu', type: 'number' }
+            ]
+        },
+        {
+            title: 'Disiplin ve Hatalar',
+            icon: <Shield />,
+            fields: [
+                { name: 'redcards', label: 'Kırmızı Kart', type: 'number' },
+                { name: 'yellowcards', label: 'Sarış Kart', type: 'number' },
+                { name: 'yellowredCards', label: 'İki Sarı Kart', type: 'number' },
+                { name: 'errorLeadToGoal', label: 'Gol Yediren Hata', type: 'number' },
+                { name: 'errorLeadToShot', label: 'Şut Yediren Hata', type: 'number' }
+            ]
+        }
+    ];
 
     return (
         <div className="player-rating-container">
-            <div className="player-rating-header">
-                <h1>Oyuncu Puanı Hesaplama</h1>
-                <HelpOutline 
-                    className="help-icon" 
-                    onClick={handleHelpClick}
-                />
-                {showHelp && (
-                    <div 
-                        className="help-tooltip"
-                        style={{
-                            left: `${helpPosition.x}px`,
-                            top: `${helpPosition.y}px`
-                        }}
-                    >
-                        Bu form, oyuncunun performans verilerine göre 0-100 arasında bir puan hesaplar.
-                        Boş bırakılan alanlar 0 olarak değerlendirilir.
-                    </div>
-                )}
-            </div>
-
             <div className="player-rating-content">
-                <form className="player-rating-form" onSubmit={handleSubmit}>
-                    <div className="form-group">
-                        <label>Dakika</label>
-                        <input
-                            type="number"
-                            name="minutesPlayed"
-                            value={formData.minutesPlayed}
-                            onChange={handleInputChange}
-                        />
-                    </div>
+                <div className="form-section">
+                    <form className="player-rating-form" onSubmit={handleSubmit}>
+                        {statCategories.map((category, index) => (
+                            <div key={index} className="stat-category">
+                                <div className="category-header">
+                                    <span className="category-icon">{category.icon}</span>
+                                    <h3>{category.title}</h3>
+                                </div>
+                                <div className="category-fields">
+                                    {category.fields.map((field) => (
+                                        <div key={field.name} className="form-group">
+                                            <label htmlFor={field.name}>{field.label}</label>
+                                            <input
+                                                id={field.name}
+                                                type={field.type}
+                                                name={field.name}
+                                                value={formData[field.name]}
+                                                onChange={handleInputChange}
+                                                placeholder={`${field.label} girin`}
+                                            />
+                                        </div>
+                                    ))}
+                                </div>
+                            </div>
+                        ))}
 
-                    <div className="form-group">
-                        <label>Gol</label>
-                        <input
-                            type="number"
-                            name="goals"
-                            value={formData.goals}
-                            onChange={handleInputChange}
-                        />
-                    </div>
+                        <div className="form-actions">
+                            <button type="button" onClick={() => navigate('/')} className="back-button">
+                                Geri Dön
+                            </button>
+                            <button type="submit" className="calculate-button" disabled={isLoading}>
+                                {isLoading ? 'Hesaplanıyor...' : 'Puanı Hesapla'}
+                            </button>
+                        </div>
+                    </form>
+                </div>
 
-                    <div className="form-group">
-                        <label>Asist</label>
-                        <input
-                            type="number"
-                            name="assists"
-                            value={formData.assists}
-                            onChange={handleInputChange}
-                        />
-                    </div>
-
-                    <div className="form-group">
-                        <label>Toplam Şut</label>
-                        <input
-                            type="number"
-                            name="shotsTotal"
-                            value={formData.shotsTotal}
-                            onChange={handleInputChange}
-                        />
-                    </div>
-
-                    <div className="form-group">
-                        <label>İsabetli Şut</label>
-                        <input
-                            type="number"
-                            name="shotsOnTarget"
-                            value={formData.shotsOnTarget}
-                            onChange={handleInputChange}
-                        />
-                    </div>
-
-                    <div className="form-group">
-                        <label>Pas</label>
-                        <input
-                            type="number"
-                            name="passes"
-                            value={formData.passes}
-                            onChange={handleInputChange}
-                        />
-                    </div>
-
-                    <div className="form-group">
-                        <label>İsabetli Pas</label>
-                        <input
-                            type="number"
-                            name="accuratePasses"
-                            value={formData.accuratePasses}
-                            onChange={handleInputChange}
-                        />
-                    </div>
-
-                    <div className="form-group">
-                        <label>Kritik Pas</label>
-                        <input
-                            type="number"
-                            name="keyPasses"
-                            value={formData.keyPasses}
-                            onChange={handleInputChange}
-                        />
-                    </div>
-
-                    <div className="form-group">
-                        <label>Dribling Denemesi</label>
-                        <input
-                            type="number"
-                            name="dribbleAttempts"
-                            value={formData.dribbleAttempts}
-                            onChange={handleInputChange}
-                        />
-                    </div>
-
-                    <div className="form-group">
-                        <label>Başarılı Dribling</label>
-                        <input
-                            type="number"
-                            name="successfulDribbles"
-                            value={formData.successfulDribbles}
-                            onChange={handleInputChange}
-                        />
-                    </div>
-
-                    <div className="form-group">
-                        <label>Müdahale</label>
-                        <input
-                            type="number"
-                            name="tackles"
-                            value={formData.tackles}
-                            onChange={handleInputChange}
-                        />
-                    </div>
-
-                    <div className="form-group">
-                        <label>Başarılı Müdahale</label>
-                        <input
-                            type="number"
-                            name="tacklesWon"
-                            value={formData.tacklesWon}
-                            onChange={handleInputChange}
-                        />
-                    </div>
-
-                    <div className="form-group">
-                        <label>Top Çalma</label>
-                        <input
-                            type="number"
-                            name="interceptions"
-                            value={formData.interceptions}
-                            onChange={handleInputChange}
-                        />
-                    </div>
-
-                    <div className="form-group">
-                        <label>Top Temizleme</label>
-                        <input
-                            type="number"
-                            name="clearances"
-                            value={formData.clearances}
-                            onChange={handleInputChange}
-                        />
-                    </div>
-
-                    <div className="form-group">
-                        <label>Kazanılan Düello</label>
-                        <input
-                            type="number"
-                            name="duelsWon"
-                            value={formData.duelsWon}
-                            onChange={handleInputChange}
-                        />
-                    </div>
-
-                    <div className="form-group">
-                        <label>Toplam Düello</label>
-                        <input
-                            type="number"
-                            name="totalDuels"
-                            value={formData.totalDuels}
-                            onChange={handleInputChange}
-                        />
-                    </div>
-
-                    <div className="form-group">
-                        <label>Kazanılan Hava Topu</label>
-                        <input
-                            type="number"
-                            name="aerialsWon"
-                            value={formData.aerialsWon}
-                            onChange={handleInputChange}
-                        />
-                    </div>
-
-                    <div className="form-group">
-                        <label>Toplam Hava Topu</label>
-                        <input
-                            type="number"
-                            name="aerials"
-                            value={formData.aerials}
-                            onChange={handleInputChange}
-                        />
-                    </div>
-
-                    <div className="form-group">
-                        <label>Top Kaybı</label>
-                        <input
-                            type="number"
-                            name="possessionLost"
-                            value={formData.possessionLost}
-                            onChange={handleInputChange}
-                        />
-                    </div>
-
-                    <div className="form-group">
-                        <label>Oluşturulan Büyük Fırsat</label>
-                        <input
-                            type="number"
-                            name="bigChancesCreated"
-                            value={formData.bigChancesCreated}
-                            onChange={handleInputChange}
-                        />
-                    </div>
-
-                    <div className="form-group">
-                        <label>Kaçırılan Büyük Fırsat</label>
-                        <input
-                            type="number"
-                            name="bigChancesMissed"
-                            value={formData.bigChancesMissed}
-                            onChange={handleInputChange}
-                        />
-                    </div>
-
-                    <div className="form-group">
-                        <label>Kazanılan Ara Pas</label>
-                        <input
-                            type="number"
-                            name="throughBallsWon"
-                            value={formData.throughBallsWon}
-                            onChange={handleInputChange}
-                        />
-                    </div>
-
-                    <div className="form-group">
-                        <label>Kırmızı Kart</label>
-                        <input
-                            type="number"
-                            name="redcards"
-                            value={formData.redcards}
-                            onChange={handleInputChange}
-                        />
-                    </div>
-
-                    <div className="form-group">
-                        <label>Sarı Kart</label>
-                        <input
-                            type="number"
-                            name="yellowcards"
-                            value={formData.yellowcards}
-                            onChange={handleInputChange}
-                        />
-                    </div>
-
-                    <div className="form-group">
-                        <label>İki Sarı Kart</label>
-                        <input
-                            type="number"
-                            name="yellowredCards"
-                            value={formData.yellowredCards}
-                            onChange={handleInputChange}
-                        />
-                    </div>
-
-                    <div className="form-group">
-                        <label>Gol Yediren Hata</label>
-                        <input
-                            type="number"
-                            name="errorLeadToGoal"
-                            value={formData.errorLeadToGoal}
-                            onChange={handleInputChange}
-                        />
-                    </div>
-
-                    <div className="form-group">
-                        <label>Şut Yediren Hata</label>
-                        <input
-                            type="number"
-                            name="errorLeadToShot"
-                            value={formData.errorLeadToShot}
-                            onChange={handleInputChange}
-                        />
-                    </div>
-
-                    <div className="form-group">
-                        <label>Son Adam Müdahalesi</label>
-                        <input
-                            type="number"
-                            name="lastManTackle"
-                            value={formData.lastManTackle}
-                            onChange={handleInputChange}
-                        />
-                    </div>
-
-                    <div className="form-group">
-                        <label>Kurtarış</label>
-                        <input
-                            type="number"
-                            name="saves"
-                            value={formData.saves}
-                            onChange={handleInputChange}
-                        />
-                    </div>
-
-                    <div className="form-group">
-                        <label>Yenen Gol</label>
-                        <input
-                            type="number"
-                            name="goalsConceded"
-                            value={formData.goalsConceded}
-                            onChange={handleInputChange}
-                        />
-                    </div>
-
-                    <div className="form-actions">
-                        <button type="button" onClick={() => navigate('/')}>Geri</button>
-                        <button type="submit">Hesapla</button>
-                    </div>
-                </form>
-
-                <div className="player-rating-result">
-                    <div className="rating-display">
-                        <div className="rating-label">Oyuncu Puanı</div>
-                        <div className="rating-value">{rating !== null ? rating.toFixed(1) : '-'}</div>
-                        <div className="rating-description">
+                <div className="result-section">
+                    <div className="player-rating-result">
+                        <div className="rating-display">
+                            <div className="rating-header">
+                                <h2>Oyuncu Puanı</h2>
+                                <div className="rating-badge">
+                                    {rating !== null ? (
+                                        <span 
+                                            className="rating-number"
+                                            style={{ color: getRatingColor(rating) }}
+                                        >
+                                            {rating.toFixed(1)}
+                                        </span>
+                                    ) : (
+                                        <span className="rating-placeholder">-</span>
+                                    )}
+                                </div>
+                            </div>
+                            
                             {rating !== null && (
                                 <>
-                                    {rating >= 90 ? 'Dünya Yıldızı' :
-                                     rating >= 80 ? 'Çok İyi' :
-                                     rating >= 70 ? 'İyi' :
-                                     rating >= 60 ? 'Orta' :
-                                     'Geliştirilmeli'}
+                                    <div className="rating-bar">
+                                        <div 
+                                            className="rating-fill"
+                                            style={{ 
+                                                width: `${rating}%`,
+                                                backgroundColor: getRatingColor(rating)
+                                            }}
+                                        ></div>
+                                    </div>
                                 </>
                             )}
+                            
+                            {rating === null && (
+                                <div className="empty-state">
+                                    <div className="empty-icon">⚽</div>
+                                    <p>Verileri girip "Puanı Hesapla" butonuna tıklayın</p>
+                                </div>
+                            )}
                         </div>
-                        {rating !== null && (
-                            <div className="rating-scale">
-                                <button onClick={() => handleRatingChange(-1)}>
-                                    <Remove />
-                                </button>
-                                <span>{rating.toFixed(1)}</span>
-                                <button onClick={() => handleRatingChange(1)}>
-                                    <Add />
-                                </button>
-                            </div>
-                        )}
                     </div>
                 </div>
             </div>

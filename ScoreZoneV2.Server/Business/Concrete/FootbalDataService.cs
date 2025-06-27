@@ -50,14 +50,6 @@ namespace Business.Concrete
             return await response.Content.ReadAsStringAsync();
         }
 
-        public async Task<string> GetTopScorersAsync(string seasonId)
-        {
-            var url = AddToken($"{BaseUrl}/topscorers/season/{seasonId}?include=player,team");
-            var response = await _httpClient.GetAsync(url);
-            response.EnsureSuccessStatusCode();
-            return await response.Content.ReadAsStringAsync();
-        }
-
         public async Task<string> GetPlayerByIdAsync(int playerId)
         {
             var url = AddToken($"{BaseUrl}/players/{playerId}");
@@ -90,9 +82,9 @@ namespace Business.Concrete
             }
         }
 
-        public async Task<string> GetTopScorersByStageAsync(long stageId)
+        public async Task<string> GetTopScorersBySeasonAsync(long seasonId)
         {
-            var url = AddToken($"{BaseUrl}/topscorers/stages/{stageId}?include=player");
+            var url = AddToken($"{BaseUrl}/topscorers/seasons/{seasonId}?include=player.nationality;player.position;participant;type;season.league&filters=seasontopscorerTypes:208");
             var response = await _httpClient.GetAsync(url);
             response.EnsureSuccessStatusCode();
             return await response.Content.ReadAsStringAsync();

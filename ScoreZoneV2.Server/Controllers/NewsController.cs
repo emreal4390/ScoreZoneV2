@@ -13,6 +13,7 @@ namespace ScoreZoneV2.Server.Controllers
     {
         private readonly HttpClient _http;
         private readonly IHttpClientFactory _httpClientFactory;
+        private const string NEWS_API_KEY = "841d6946d3d349249d4790f2a9650fbb";
 
         public NewsController(IHttpClientFactory httpClientFactory)
         {
@@ -54,12 +55,12 @@ namespace ScoreZoneV2.Server.Controllers
                 }
                 catch (Exception ex)
                 {
-                    // Hata durumunda diğer liglere devam et
+                   
                     continue;
                 }
             }
 
-            // Haberleri karıştır ve en son 20 haberini döndür
+           
             var random = new Random();
             var shuffledArticles = allArticles.OrderBy(x => random.Next()).Take(20).ToList();
 
@@ -93,6 +94,98 @@ namespace ScoreZoneV2.Server.Controllers
             catch (Exception ex)
             {
                 return StatusCode(500, $"Haberler alınırken bir hata oluştu: {ex.Message}");
+            }
+        }
+
+        [HttpGet("sportsnews")]
+        public async Task<IActionResult> GetSportsNews()
+        {
+            try
+            {
+                var apiUrl = $"https://newsapi.org/v2/top-headlines?country=us&category=sports&apiKey={NEWS_API_KEY}";
+                
+                var request = new HttpRequestMessage(HttpMethod.Get, apiUrl);
+                request.Headers.Add("User-Agent", "ScoreZoneV2/1.0");
+                
+                var response = await _http.SendAsync(request);
+                
+                if (!response.IsSuccessStatusCode)
+                {
+                    var errorContent = await response.Content.ReadAsStringAsync();
+                    return StatusCode(500, new { 
+                        status = "error", 
+                        message = $"NewsAPI hatası: {response.StatusCode} - {errorContent}" 
+                    });
+                }
+                
+                var content = await response.Content.ReadAsStringAsync();
+                var newsData = JsonSerializer.Deserialize<JsonElement>(content);
+                
+                
+                if (newsData.TryGetProperty("articles", out var articles))
+                {
+                    var filteredArticles = new List<object>();
+                    int count = 0;
+                    
+                    foreach (var article in articles.EnumerateArray())
+                    {
+                        if (count >= 5) break;
+                        
+                        if (article.TryGetProperty("urlToImage", out var imageUrl) && 
+                            !string.IsNullOrEmpty(imageUrl.GetString()) &&
+                            article.TryGetProperty("title", out var title) &&
+                            !string.IsNullOrEmpty(title.GetString()) &&
+                            article.TryGetProperty("description", out var description) &&
+                            !string.IsNullOrEmpty(description.GetString()))
+                        {
+                            filteredArticles.Add(new
+                            {
+                                source = new
+                                {
+                                    name = article.TryGetProperty("source", out var source) && 
+                                           source.TryGetProperty("name", out var sourceName) 
+                                           ? sourceName.GetString() : "Bilinmeyen Kaynak"
+                                },
+                                author = article.TryGetProperty("author", out var author) 
+                                        ? author.GetString() : null,
+                                title = title.GetString(),
+                                description = description.GetString(),
+                                articleUrl = article.TryGetProperty("url", out var articleUrlProp) 
+                                     ? articleUrlProp.GetString() : "",
+                                urlToImage = imageUrl.GetString(),
+                                publishedAt = article.TryGetProperty("publishedAt", out var publishedAt) 
+                                             ? publishedAt.GetString() : ""
+                            });
+                            count++;
+                        }
+                    }
+                    
+                    return Ok(new { 
+                        status = "ok", 
+                        totalResults = filteredArticles.Count,
+                        articles = filteredArticles 
+                    });
+                }
+                
+                return Ok(new { 
+                    status = "ok", 
+                    totalResults = 0,
+                    articles = new List<object>() 
+                });
+            }
+            catch (HttpRequestException ex)
+            {
+                return StatusCode(500, new { 
+                    status = "error", 
+                    message = "NewsAPI'ye bağlanılamadı: " + ex.Message 
+                });
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, new { 
+                    status = "error", 
+                    message = "Haberler alınırken hata oluştu: " + ex.Message 
+                });
             }
         }
     }

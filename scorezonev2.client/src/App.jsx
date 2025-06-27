@@ -10,6 +10,7 @@ import Feed from './pages/Feed';
 import PlayerProfile from './pages/PlayerProfile';
 import FeaturedPlayers from './components/FeaturedPlayers';
 import PlayerComparison from './components/PlayerComparison';
+import SportsNews from './components/SportsNews';
 import './App.css';
 
 function App() {
@@ -39,6 +40,7 @@ function App() {
                                 </main>
                                 <aside className="right-panel">
                                     <PlayerComparison />
+                                    <SportsNews />
                                 </aside>
                             </div>
                         } />

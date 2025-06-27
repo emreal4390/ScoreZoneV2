@@ -7,7 +7,7 @@ const backend = axios.create({
     }
 });
 
-export const getTopScorers = (stageId) => backend.get(`/matches/topscorers/${stageId}`);
+export const getTopScorersBySeason = (seasonId) => backend.get(`/matches/topscorers-season/${seasonId}`);
 export const getSquad = (seasonId, teamId) => backend.get(`/matches/squad/${seasonId}/${teamId}?include=player.nationality`);
 
 export default backend;

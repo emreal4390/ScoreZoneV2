@@ -19,12 +19,10 @@ public class MatchesController : ControllerBase
         return Content(result, "application/json");
     }
 
-   
-
-    [HttpGet("topscorers/{stageId}")]
-    public async Task<IActionResult> GetTopScorers(long stageId)
+    [HttpGet("topscorers-season/{seasonId}")]
+    public async Task<IActionResult> GetTopScorersBySeason(long seasonId)
     {
-        var result = await _footballService.GetTopScorersByStageAsync(stageId);
+        var result = await _footballService.GetTopScorersBySeasonAsync(seasonId);
         return Content(result, "application/json");
     }
 

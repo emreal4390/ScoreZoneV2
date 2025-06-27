@@ -19,13 +19,6 @@ public class PlayersController : ControllerBase
         return Content(result, "application/json");
     }
 
-    [HttpGet("topscorers/{seasonId}")]
-    public async Task<IActionResult> GetTopScorers(string seasonId)
-    {
-        var result = await _footballService.GetTopScorersAsync(seasonId);
-        return Content(result, "application/json");
-    }
-
     /// <summary>
     /// Oyuncu detaylarını, istatistiklerini ve kupalarını detaylı şekilde döndürür.
     /// </summary>

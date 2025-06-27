@@ -5,8 +5,7 @@
         
         Task<string> GetStandingsAsync(string competitionCode);
 
-        Task<string> GetTopScorersAsync(string competitionCode);
-        Task<string> GetTopScorersByStageAsync(long stageId);
+        Task<string> GetTopScorersBySeasonAsync(long seasonId);
 
         Task<string> GetPlayerByIdAsync(int playerId);
         Task<string> GetPlayerByIdWithIncludeAsync(int playerId, string include);
